@@ -1,5 +1,5 @@
 # WebProject
-# Z Zento — Social Media Platform
+# Zento — Social Media Platform
 
 A front-end social media platform built as part of the **CMPS 350 Web Development** course project (Phase 1). The platform is inspired by modern social networks like Twitter and Instagram, designed to be clean, responsive, and fully functional using only core web technologies.
 
