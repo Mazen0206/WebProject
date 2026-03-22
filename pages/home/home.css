@@ -1,0 +1,281 @@
+@import url('../../shared/post/post.css');
+
+/* ───────────────────────────
+   3-COLUMN LAYOUT
+─────────────────────────── */
+.page-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ───────────────────────────
+   LEFT SIDEBAR
+─────────────────────────── */
+.sidebar {
+    width: 210px;
+    background-color: var(--color-white);
+    border-right: 1px solid var(--color-border);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.sidebar-logo img {
+    width: 120px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.nav-link {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+}
+
+.nav-link.active {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+}
+
+/* ───────────────────────────
+   MAIN FEED
+─────────────────────────── */
+.feed {
+    flex: 1;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.feed h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+/* Compose Box */
+.compose-box {
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.compose-box input {
+    flex: 1;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: system-ui, -apple-system, sans-serif;
+    outline: none;
+    color: var(--color-text-primary);
+}
+
+.compose-box input::placeholder {
+    color: var(--color-text-secondary);
+}
+
+/* ───────────────────────────
+   RIGHT SIDEBAR
+─────────────────────────── */
+.right-sidebar {
+    width: 280px;
+    border-left: 1px solid var(--color-border);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Widget Box */
+.widget {
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.widget h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+/* User Row */
+.user-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.user-handle {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+}
+
+/* ───────────────────────────
+   BUTTONS
+─────────────────────────── */
+.btn-primary {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: system-ui, -apple-system, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-blue-hover);
+}
+
+.btn-follow {
+    background-color: transparent;
+    border: 1.5px solid var(--color-blue);
+    color: var(--color-blue);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: system-ui, -apple-system, sans-serif;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-follow:hover {
+    background-color: var(--color-blue);
+    color: var(--color-white);
+}
+
+/* ───────────────────────────
+   RESPONSIVE
+─────────────────────────── */
+
+/* Tablet: hide right sidebar */
+@media (max-width: 1024px) {
+    .right-sidebar {
+        display: none;
+    }
+}
+
+/* Small tablet: shrink left sidebar */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 160px;
+        padding: 20px 10px;
+    }
+
+    .sidebar-logo img {
+        width: 96px;
+    }
+
+    .nav-link {
+        font-size: 13px;
+        padding: 9px 10px;
+    }
+}
+
+/* Mobile: sidebar becomes fixed bottom nav */
+@media (max-width: 600px) {
+    .page-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        border-right: none;
+        border-top: 1px solid var(--color-border);
+        padding: 8px 4px;
+        z-index: 100;
+        gap: 0;
+        background-color: var(--color-white);
+    }
+
+    .sidebar-logo {
+        display: none;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        gap: 0;
+    }
+
+    .nav-link {
+        padding: 8px 10px;
+        font-size: 11px;
+        text-align: center;
+        border-radius: 8px;
+    }
+
+    .feed {
+        padding: 16px 12px 90px;
+    }
+
+    .feed h2 {
+        font-size: 18px;
+    }
+
+    .compose-box {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .compose-box .avatar-img {
+        display: none;
+    }
+
+    .compose-box input {
+        flex: none;
+        width: 100%;
+    }
+}

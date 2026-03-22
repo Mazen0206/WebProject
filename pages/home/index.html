@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zento - Home Feed</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+    <div class="page-layout">
+
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../../assets/images/zento_logo.png" alt="Zento">
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="../profile/profile.html" class="nav-link">Profile</a>
+                <a href="#" class="nav-link">Following</a>
+                <a href="#" class="nav-link">Posts</a>
+            </nav>
+        </aside>
+
+        <!-- Main Feed -->
+        <main class="feed">
+            <h2>Home Feed</h2>
+
+            <!-- Compose Box -->
+            <div class="compose-box">
+                <img id="compose-avatar" src="../../assets/users pfp/user-maro.jpg" alt="me" class="avatar-img">
+                <input id="compose-input" type="text" placeholder="What's on your mind?">
+                <button id="compose-btn" class="btn-primary">Post</button>
+            </div>
+
+            <div id="posts-container"></div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+
+            <!-- Suggestions -->
+            <section class="widget">
+                <h3>Suggestions</h3>
+
+                <div class="user-row">
+                    <img src="../../assets/users pfp/user-sara.jpg" alt="sara" class="avatar-img">
+                    <div class="user-info">
+                        <span class="user-name">Sara</span>
+                        <span class="user-handle">@sara</span>
+                    </div>
+                    <button class="btn-follow" data-user-id="u2">Follow</button>
+                </div>
+
+                <div class="user-row">
+                    <img src="../../assets/users pfp/user-omar.jpg" alt="omar" class="avatar-img">
+                    <div class="user-info">
+                        <span class="user-name">Omar</span>
+                        <span class="user-handle">@omar</span>
+                    </div>
+                    <button class="btn-follow" data-user-id="u3">Follow</button>
+                </div>
+
+                <div class="user-row">
+                    <img src="../../assets/users pfp/user-arabic1.jpg" alt="user" class="avatar-img">
+                    <div class="user-info">
+                        <span class="user-name">Alex</span>
+                        <span class="user-handle">@alex</span>
+                    </div>
+                    <button class="btn-follow" data-user-id="u4">Follow</button>
+                </div>
+            </section>
+
+            <!-- Notes -->
+            <section class="widget">
+                <h3>Notes</h3>
+
+                <div class="user-row">
+                    <img src="../../assets/users pfp/user-maro.jpg" alt="maro" class="avatar-img">
+                    <div class="user-info">
+                        <span class="user-name">Maro</span>
+                        <span class="user-handle">Just deployed my project 🚀</span>
+                    </div>
+                </div>
+
+                <div class="user-row">
+                    <img src="../../assets/users pfp/user-sara.jpg" alt="sara" class="avatar-img">
+                    <div class="user-info">
+                        <span class="user-name">Sara</span>
+                        <span class="user-handle">Reading a great book today 📚</span>
+                    </div>
+                </div>
+
+                <div class="user-row">
+                    <img src="../../assets/users pfp/user-arabic2.jpg" alt="user" class="avatar-img">
+                    <div class="user-info">
+                        <span class="user-name">Omar</span>
+                        <span class="user-handle">Morning run done. Feeling great!</span>
+                    </div>
+                </div>
+            </section>
+
+        </aside>
+
+    </div>
+
+    <script type="module" src="home.js"></script>
+</body>
+</html>
