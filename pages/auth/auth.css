@@ -1,0 +1,180 @@
+/* Zento auth — single primary from shared/main.css */
+
+.auth-page {
+    min-height: 100dvh;
+    margin: 0;
+    font-family: var(--font);
+    background: var(--bg);
+    background-image: radial-gradient(
+      ellipse 120% 80% at 100% 100%,
+      rgba(var(--primary-rgb), 0.1),
+      transparent 55%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(var(--space), 4vw, calc(var(--space) * 3));
+    box-sizing: border-box;
+  }
+  
+  .auth-shell {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .auth-card {
+    position: relative;
+    background: var(--card);
+    border-radius: var(--radius-lg);
+    padding: calc(var(--space) * 2.5) calc(var(--space) * 2.25) calc(var(--space) * 2);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+  }
+  
+  .auth-card__glow {
+    position: absolute;
+    top: -35%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(
+      circle,
+      rgba(var(--primary-rgb), 0.18) 0%,
+      rgba(var(--primary-rgb), 0.06) 45%,
+      transparent 68%
+    );
+    pointer-events: none;
+    filter: blur(3px);
+  }
+  
+  .auth-card__header {
+    position: relative;
+    text-align: center;
+    margin-bottom: calc(var(--space) * 1.75);
+  }
+  
+  .auth-logo {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 14px;
+    border-radius: calc(var(--radius) + 4px);
+    background: var(--card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+  }
+  
+  .auth-logo__mark {
+    font-size: 1.85rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--primary);
+  }
+  
+  .auth-brand {
+    margin: 0;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  
+  .auth-form {
+    position: relative;
+  }
+  
+  .auth-form p {
+    margin: 0 0 var(--space);
+  }
+  
+  .auth-form label {
+    font-size: 0.875rem;
+    color: var(--text-light);
+  }
+  
+  .auth-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: calc(var(--space) * 0.875) var(--space);
+    font-family: inherit;
+    font-size: 0.9375rem;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  
+  .auth-input::placeholder {
+    color: var(--text-light);
+  }
+  
+  .auth-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.2);
+  }
+  
+  .auth-form .auth-input {
+    margin-top: 6px;
+  }
+  
+  .auth-submit {
+    margin-top: 6px;
+    width: 100%;
+    padding: calc(var(--space) * 0.875) calc(var(--space) * 1.25);
+    font-family: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--card);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    background: var(--primary);
+    box-shadow: 0 8px 24px rgba(var(--primary-rgb), 0.35);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+  }
+  
+  .auth-submit:hover {
+    filter: brightness(1.06);
+    box-shadow: 0 10px 28px rgba(var(--primary-rgb), 0.4);
+  }
+  
+  .auth-submit:active {
+    transform: scale(0.99);
+  }
+  
+  .auth-submit:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+  
+  .auth-footer {
+    position: relative;
+    margin: calc(var(--space) * 1.375) 0 0;
+    text-align: center;
+    font-size: 0.8125rem;
+    color: var(--text-light);
+  }
+  
+  .auth-footer a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  
+  .auth-footer a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 480px) {
+    .auth-card {
+      padding: calc(var(--space) * 2) calc(var(--space) * 1.5) calc(var(--space) * 1.75);
+    }
+  }
+  

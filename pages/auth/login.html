@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in — Zento</title>
+    <link rel="stylesheet" href="../../shared/main.css" />
+    <link rel="stylesheet" href="auth.css" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-shell">
+      <div class="auth-card">
+        <div class="auth-card__glow"></div>
+
+        <div class="auth-card__header">
+          <div class="auth-logo">
+            <span class="auth-logo__mark">Z</span>
+          </div>
+          <h1 class="auth-brand">Zento</h1>
+        </div>
+
+        <form class="auth-form" action="#" method="post">
+          <p>
+            <label for="email">Email</label><br />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              class="auth-input"
+              autocomplete="email"
+              required
+            />
+          </p>
+          <p>
+            <label for="password">Password</label><br />
+            <input
+              id="password"
+              name="password"
+              type="password"
+              class="auth-input"
+              autocomplete="current-password"
+              required
+            />
+          </p>
+          <p>
+            <button type="submit" class="auth-submit">Log in</button>
+          </p>
+        </form>
+
+        <p class="auth-footer">
+          Don’t have an account? <a href="register.html">Sign up</a>
+        </p>
+      </div>
+    </main>
+    <script src="auth.js"></script>
+  </body>
+</html>
