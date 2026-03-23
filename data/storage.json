@@ -1,0 +1,135 @@
+{
+    "currentUserId": "u1",
+    "users": [
+      {
+        "id": "u1",
+        "username": "maro",
+        "email": "maro@example.com",
+        "password": "123456",
+        "profilePicture": "assets/users pfp/user-maro.jpg",
+        "bio": "Web developer. Tech enthusiast. Love to share my thoughts on the internet! 🌟",
+        "following": ["u2", "u3"],
+        "followers": ["u2", "u3"]
+      },
+      {
+        "id": "u2",
+        "username": "sara",
+        "email": "sara@example.com",
+        "password": "123456",
+        "profilePicture": "assets/users pfp/user-sara.jpg",
+        "bio": "Designer & coffee enthusiast.",
+        "following": ["u1", "u3"],
+        "followers": ["u1"]
+      },
+      {
+        "id": "u3",
+        "username": "omar",
+        "email": "omar@example.com",
+        "password": "123456",
+        "profilePicture": "assets/users pfp/user-omar.jpg",
+        "bio": "Building things on the web.",
+        "following": ["u1"],
+        "followers": ["u1", "u2"]
+      }
+    ],
+    "posts": [
+      {
+        "id": "p1",
+        "userId": "u1",
+        "content": "My first post!",
+        "image": "assets/Posts/post-coffee.jpg",
+        "timestamp": "2026-03-22T10:00:00Z",
+        "likes": ["u2", "u3"],
+        "comments": [
+          {
+            "id": "c1",
+            "userId": "u2",
+            "content": "Nice post!",
+            "timestamp": "2026-03-22T10:05:00Z"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "userId": "u1",
+        "content": "Sunny day — perfect for a walk.",
+        "image": "assets/Posts/post-nature.jpg",
+        "timestamp": "2026-03-22T11:30:00Z",
+        "likes": ["u2"],
+        "comments": []
+      },
+      {
+        "id": "p3",
+        "userId": "u2",
+        "content": "Shipped a new layout today. Feels good.",
+        "image": "assets/Posts/post-couch.jpg",
+        "timestamp": "2026-03-22T09:15:00Z",
+        "likes": ["u1", "u3"],
+        "comments": [
+          {
+            "id": "c2",
+            "userId": "u1",
+            "content": "Looks clean!",
+            "timestamp": "2026-03-22T09:20:00Z"
+          },
+          {
+            "id": "c3",
+            "userId": "u3",
+            "content": "Congrats on the launch.",
+            "timestamp": "2026-03-22T09:45:00Z"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "userId": "u2",
+        "content": "Anyone else obsessed with monospace fonts?",
+        "image": "assets/Posts/post-city.jpg",
+        "timestamp": "2026-03-21T18:00:00Z",
+        "likes": ["u1"],
+        "comments": []
+      },
+      {
+        "id": "p5",
+        "userId": "u3",
+        "content": "Debugging is just storytelling with stack traces.",
+        "image": "assets/Posts/post-street.jpg",
+        "timestamp": "2026-03-22T08:00:00Z",
+        "likes": ["u1", "u2"],
+        "comments": [
+          {
+            "id": "c4",
+            "userId": "u2",
+            "content": "Too real.",
+            "timestamp": "2026-03-22T08:10:00Z"
+          }
+        ]
+      },
+      {
+        "id": "p6",
+        "userId": "u3",
+        "content": "Weekend project: tiny CLI tool. More fun than expected.",
+        "image": null,
+        "timestamp": "2026-03-20T14:00:00Z",
+        "likes": ["u1"],
+        "comments": []
+      },
+      {
+        "id": "p7",
+        "userId": "u1",
+        "content": "Thanks everyone for the warm welcome here.",
+        "image": "assets/Posts/post-appreciation.jpg",
+        "timestamp": "2026-03-19T16:00:00Z",
+        "likes": ["u2", "u3"],
+        "comments": [
+          {
+            "id": "c5",
+            "userId": "u3",
+            "content": "Glad you're here!",
+            "timestamp": "2026-03-19T16:30:00Z"
+          }
+        ]
+      }
+    ]
+  }
+  
