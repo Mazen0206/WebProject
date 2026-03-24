@@ -1,0 +1,270 @@
+/* ── Shared Variables ── */
+:root {
+    --color-bg: #f3f4f8;
+    --color-white: #ffffff;
+    --color-border: #dde1ed;
+
+    --color-text-primary: #1f2340;
+    --color-text-secondary: #6b7190;
+
+    --color-blue: #3b82f6;
+    --color-blue-hover: #2563eb;
+
+    --color-avatar-blue: #3b82f6;
+    --color-avatar-orange: #e8724a;
+    --color-avatar-green: #34a98c;
+    --color-avatar-purple: #9b59b6;
+
+    --radius: 12px;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+}
+
+/* ── Reset ── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+}
+
+/* ───────────────────────────
+   POST CARD
+─────────────────────────── */
+.post-card {
+    background-color: var(--color-white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.post-meta {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.post-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.post-handle {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+}
+
+.post-dots {
+    font-size: 18px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+
+.post-body {
+    font-size: 14px;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+}
+
+.post-image {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.post-reactions {
+    display: flex;
+    gap: 6px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-border);
+}
+
+.post-reactions button {
+    background-color: transparent;
+    border: none;
+    font-size: 13px;
+    font-family: system-ui, -apple-system, sans-serif;
+    color: var(--color-text-secondary);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.post-reactions button:hover {
+    background-color: var(--color-bg);
+    color: var(--color-blue);
+}
+
+.btn-like.liked {
+    color: #e53e3e;
+}
+
+/* ───────────────────────────
+   AVATAR
+─────────────────────────── */
+.avatar-img {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* ───────────────────────────
+   RESPONSIVE
+─────────────────────────── */
+@media (max-width: 480px) {
+    .post-card {
+        padding: 14px;
+    }
+
+    .post-reactions {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+
+    .post-reactions button {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
+}
+
+/* ───────────────────────────
+   DELETE BUTTON (own posts)
+─────────────────────────── */
+.btn-delete {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-left: auto;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-delete:hover {
+    background-color: #fff0f0;
+    color: #e53e3e;
+}
+
+/* ───────────────────────────
+   COMMENT FORM
+─────────────────────────── */
+.comment-form {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.comment-input {
+    flex: 1;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-family: system-ui, -apple-system, sans-serif;
+    outline: none;
+    color: var(--color-text-primary);
+}
+
+.comment-input:focus {
+    border-color: var(--color-blue);
+}
+
+.comment-submit {
+    background-color: var(--color-blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.comment-submit:hover {
+    background-color: var(--color-blue-hover);
+}
+
+/* ───────────────────────────
+   COMMENTS SECTION
+─────────────────────────── */
+.comments-section {
+    border-top: 1px solid var(--color-border);
+    padding-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* List of existing comments */
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Single comment row */
+.comment {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.comment-body {
+    background-color: var(--color-bg);
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.comment-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.comment-text {
+    font-size: 13px;
+    color: var(--color-text-primary);
+    line-height: 1.4;
+}
+
+.comment-time {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+}
+
+/* Smaller avatar used inside comments */
+.avatar-sm {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
