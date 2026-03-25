@@ -17,7 +17,7 @@ async function main() {
     wireFollowButtons();
 }
 
-// ─── Feed ─────────────────────────────────────────────────────────────────────
+// ─── Feed  ─────────────────────────────────────────────────────────────────────
 
 function renderFeed() {
     const users         = getUsers();
@@ -25,7 +25,7 @@ function renderFeed() {
     const currentUser   = users.find(u => u.id === currentUserId);
     const container     = document.getElementById("posts-container");
 
-    // Set the logged-in user's avatar in the compose box
+    // Show current user's avatar in the compose box
     const composeAvatar = document.getElementById("compose-avatar");
     if (composeAvatar && currentUser) {
         composeAvatar.src = ROOT + currentUser.profilePicture;

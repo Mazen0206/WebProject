@@ -362,7 +362,7 @@
    EDIT PROFILE MODAL
 ─────────────────────────── */
 
-/* Dark overlay covering the whole screen */
+/* Dark overlay covering Full-screen */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -453,7 +453,7 @@
     min-height: 90px;
 }
 
-/* Character counter inside label */
+/* Character counter in the label */
 .char-count {
     font-size: 12px;
     font-weight: 400;

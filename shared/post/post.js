@@ -60,7 +60,7 @@ export function createPostCard(post, user, isOwner = false) {
 }
 
 /**
- * Wire all interactions (like, comment, delete) onto a card element.
+ * Set up all interactions (like, comment, delete) onto a card element.
  */
 export function wirePostCard(article, post, currentUserId, onDelete) {
     wireLike(article, post, currentUserId);

@@ -215,7 +215,7 @@
     }
 }
 
-/* Mobile: sidebar becomes fixed bottom nav */
+/* Mobile: sidebar becomes bottom navegation */
 @media (max-width: 600px) {
     .page-layout {
         flex-direction: column;
