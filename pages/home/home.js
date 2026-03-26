@@ -5,6 +5,7 @@ import {
     getPosts,
     savePosts,
     getCurrentUserId,
+    clearSession,
 } from "../../data/storage.js";
 import { createPostCard, wirePostCard } from "../../shared/post/post.js";
 
@@ -23,6 +24,16 @@ async function main() {
     renderSuggestions();
     wireComposeBox();
     wireFollowButtons();
+    wireLogout();
+}
+
+function wireLogout() {
+    const btn = document.getElementById("logout-btn");
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+        clearSession();
+        window.location.href = "../auth/register.html";
+    });
 }
 
 // ─── Feed ─────────────────────────────────────────────────────────────────────
