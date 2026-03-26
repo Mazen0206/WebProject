@@ -577,5 +577,5 @@
 }
 
 .post-card .post-body:hover {
-    color: var(--color-blue);
+    color: inherit;
 }
