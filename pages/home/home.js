@@ -50,10 +50,11 @@ function openPostModal(postId) {
     const commentsSection = card.querySelector(".comments-section");
     if (commentsSection) commentsSection.style.display = "flex";
 
-    wirePostCard(card, post, currentUserId, () => {
-        closePostModal();
-        renderFeed();
-    });
+    wirePostCard(
+        card, post, currentUserId,
+        () => { closePostModal(); renderFeed(); },
+        () => { renderFeed(); }
+    );
 
     content.appendChild(card);
 

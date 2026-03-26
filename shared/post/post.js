@@ -114,7 +114,7 @@ function renderComments(card, post) {
 }
 
 
-export function wirePostCard(card, post, currentUserId, onUpdate) {
+export function wirePostCard(card, post, currentUserId, onUpdate, onComment) {
     const likeBtn = card.querySelector(".btn-like");
     if (likeBtn) {
         likeBtn.addEventListener("click", () => {
@@ -166,6 +166,7 @@ export function wirePostCard(card, post, currentUserId, onUpdate) {
             renderComments(card, p);
             const countEl = commentBtn?.querySelector(".comment-count");
             if (countEl) countEl.textContent = p.comments.length;
+            if (onComment) onComment();
         });
         commentInput.addEventListener("keydown", e => {
             if (e.key === "Enter") commentSubmit.click();
