@@ -8,67 +8,90 @@
 </head>
 <body>
 
-    <!-- ── Top Navbar ── -->
-    <nav class="navbar">
-        <a href="../home/index.html" class="navbar-logo">
-            <img src="../../assets/images/zento_logo.png" alt="Zento">
-        </a>
-        <div class="navbar-search">
-            <span class="search-icon">⌕</span>
-            <input type="text" placeholder="Search">
-        </div>
-        <div class="navbar-actions">
-            <button class="icon-btn">✉</button>
-            <button class="icon-btn">🔔</button>
-            <!-- Logged-in user avatar (top-right) — set by JS -->
-            <img id="navbar-avatar" src="" alt="me" class="avatar-img">
-            <a href="../home/index.html" class="home-dropdown">Home ▾</a>
-        </div>
-    </nav>
+    <div class="page-layout">
 
-    <!-- ── Page Content ── -->
-    <div class="page-content">
+        <!-- ── Left Sidebar ── -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="../../assets/images/zento_logo.png" alt="Zento">
+            </div>
+            <nav class="sidebar-nav">
+                <a href="../home/index.html" class="nav-link"><span class="nav-icon">🏠</span><span class="nav-text">Home</span></a>
+                <a href="profile.html" class="nav-link active"><span class="nav-icon">👤</span><span class="nav-text">Profile</span></a>
+            </nav>
+        </aside>
 
-        <!-- Cover + Avatar — images set by JS -->
-        <div class="cover-section">
-            <img id="profile-cover" src="" alt="Cover photo" class="cover-photo">
-            <img id="profile-avatar-img" src="" alt="Avatar" class="profile-avatar">
-        </div>
+        <!-- ── Main Content ── -->
+        <div class="profile-scroll-area">
 
-        <!-- Profile Info — text filled by JS -->
-        <div class="profile-info">
-            <div class="profile-text">
-                <h1 id="profile-name"></h1>
-                <p class="profile-handle" id="profile-handle"></p>
-                <p class="profile-bio" id="profile-bio"></p>
-                <div class="profile-stats">
-                    <span><strong id="following-count">0</strong> Following</span>
-                    <span><strong id="followers-count">0</strong> Followers</span>
+            <!-- Profile Header Card -->
+            <div class="profile-header-card">
+                <div class="cover-section">
+                    <img id="profile-cover" src="" alt="Cover photo" class="cover-photo">
+                    <img id="profile-avatar-img" src="" alt="Avatar" class="profile-avatar">
+                </div>
+                <div class="profile-info">
+                    <div class="profile-text">
+                        <h1 id="profile-name"></h1>
+                        <p class="profile-handle" id="profile-handle"></p>
+                        <p class="profile-bio" id="profile-bio"></p>
+                        <div class="profile-stats">
+                            <span><strong id="following-count">0</strong> Following</span>
+                            <span><strong id="followers-count">0</strong> Followers</span>
+                        </div>
+                    </div>
+                    <button id="profile-action-btn"></button>
                 </div>
             </div>
-            <!-- "Edit Profile" for own profile, "Follow/Unfollow" for others — set by JS -->
-            <button id="profile-action-btn"></button>
+
+            <!-- ── Two-Column Content Area ── -->
+            <div class="profile-content">
+
+                <!-- Left: Feed Column -->
+                <div class="profile-main">
+
+                    <!-- Compose Box — own profile only -->
+                    <section id="compose-section" class="compose-box compose-box--expanded" style="display: none;">
+                        <img id="compose-avatar" src="" alt="me" class="avatar-img">
+                        <div class="compose-body">
+                            <input type="text" id="compose-input" placeholder="What's on your mind?" maxlength="280">
+                            <img id="compose-img-preview" class="compose-img-preview" style="display:none;" alt="Image preview">
+                            <div class="compose-actions">
+                                <label for="compose-image-file" class="compose-img-btn" title="Add photo">📷 Photo</label>
+                                <input type="file" id="compose-image-file" accept="image/*" style="display:none;">
+                                <button id="compose-img-remove" class="compose-img-remove" style="display:none;">✕ Remove</button>
+                                <button id="compose-btn" class="btn-primary compose-post-btn">Post</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Posts / Likes Tabs -->
+                    <div class="profile-tabs">
+                        <button class="tab-btn active" id="posts-tab-btn">Posts</button>
+                        <button class="tab-btn" id="likes-tab-btn">Likes</button>
+                    </div>
+
+                    <!-- Posts Feed -->
+                    <section id="posts-container" class="posts-feed"></section>
+                </div>
+
+                <!-- Right: Photo Grid Sidebar -->
+                <aside class="profile-sidebar">
+                    <div class="photo-grid-card">
+                        <div class="photo-grid-header">
+                            <span class="photo-grid-title">Posts</span>
+                            <span class="photo-grid-count" id="photo-count">0 posts</span>
+                        </div>
+                        <div id="photo-grid" class="photo-grid"></div>
+                        <p id="photo-grid-empty" class="photo-grid-empty" style="display:none;">No photos yet.</p>
+                    </div>
+                </aside>
+
+            </div>
         </div>
-
-        <!-- Compose Box — only shown on own profile by JS -->
-        <div id="compose-section" class="compose-box" style="display: none;">
-            <img id="compose-avatar" src="" alt="me" class="avatar-img">
-            <input type="text" id="compose-input" placeholder="What's on your mind?" maxlength="280">
-            <button id="compose-btn" class="btn-primary">Post</button>
-        </div>
-
-        <!-- Posts / Likes Tabs -->
-        <div class="profile-tabs">
-            <button class="tab-btn active" id="posts-tab-btn">Posts</button>
-            <button class="tab-btn" id="likes-tab-btn">Likes</button>
-        </div>
-
-        <!-- Posts container — filled by JS -->
-        <div id="posts-container" class="posts-feed"></div>
-
     </div>
 
-    <!-- ── Edit Profile Modal — only usable on own profile ── -->
+    <!-- ── Edit Profile Modal ── -->
     <div id="edit-modal" class="modal-overlay" style="display: none;">
         <div class="modal-box">
             <div class="modal-header">
@@ -81,6 +104,17 @@
                     <input type="text" id="edit-name" placeholder="Your name" required>
                 </div>
                 <div class="form-group">
+                    <label>Profile Picture</label>
+                    <div class="avatar-picker">
+                        <img id="edit-avatar-preview" src="" alt="Avatar preview" class="avatar-picker-preview">
+                        <div class="avatar-picker-controls">
+                            <label for="edit-avatar-file" class="avatar-picker-btn">Choose Photo</label>
+                            <input type="file" id="edit-avatar-file" accept="image/*" style="display:none;">
+                            <span class="avatar-picker-hint">JPG, PNG or GIF — shown as your profile picture</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="edit-bio">
                         Bio
                         <span id="char-count" class="char-count">0 / 150</span>
@@ -91,6 +125,16 @@
             </form>
         </div>
     </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-nav">
+                <a href="../home/index.html" class="footer-link">Home</a>
+                <a href="profile.html" class="footer-link active">Profile</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Zento. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script type="module" src="profile.js"></script>
 </body>

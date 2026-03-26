@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zento - Post</title>
+    <link rel="stylesheet" href="../../shared/main.css">
+    <link rel="stylesheet" href="../home/home.css">
+    <link rel="stylesheet" href="../../shared/post/post.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="../home/index.html" class="navbar-logo">
+            <img src="../../assets/images/zento_logo.png" alt="Zento">
+        </a>
+        <div class="navbar-search">
+            <span class="search-icon">⌕</span>
+            <input type="text" placeholder="Search">
+        </div>
+        <div class="navbar-actions">
+            <button class="icon-btn">✉</button>
+            <button class="icon-btn">🔔</button>
+            <img id="navbar-avatar" src="" alt="me" class="avatar-img">
+            <a href="../profile/profile.html" class="home-dropdown">Profile ▾</a>
+        </div>
+    </nav>
+
+    <main class="page-layout">
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="../home/index.html" class="nav-link">Home</a>
+                <a href="../profile/profile.html" class="nav-link">Profile</a>
+            </nav>
+        </aside>
+
+        <section class="feed">
+            <h2>Post Detail</h2>
+            <div id="post-container"></div>
+        </section>
+
+        <aside class="right-sidebar">
+            <!-- Empty for layout balance -->
+        </aside>
+    </main>
+
+    <script type="module" src="post.js"></script>
+</body>
+</html>

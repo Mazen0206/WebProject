@@ -17,10 +17,8 @@
             </div>
 
             <nav class="sidebar-nav">
-                <a href="#" class="nav-link active">Home</a>
-                <a href="../profile/profile.html" class="nav-link">Profile</a>
-                <a href="#" class="nav-link">Following</a>
-                <a href="#" class="nav-link">Posts</a>
+                <a href="#" class="nav-link active"><span class="nav-icon">🏠</span><span class="nav-text">Home</span></a>
+                <a href="../profile/profile.html" class="nav-link"><span class="nav-icon">👤</span><span class="nav-text">Profile</span></a>
             </nav>
         </aside>
 
@@ -29,10 +27,18 @@
             <h2>Home Feed</h2>
 
             <!-- Compose Box -->
-            <div class="compose-box">
-                <img id="compose-avatar" src="../../assets/users pfp/user-maro.jpg" alt="me" class="avatar-img">
-                <input id="compose-input" type="text" placeholder="What's on your mind?">
-                <button id="compose-btn" class="btn-primary">Post</button>
+            <div class="compose-box compose-box--expanded">
+                <img id="compose-avatar" src="" alt="me" class="avatar-img">
+                <div class="compose-body">
+                    <input id="compose-input" type="text" placeholder="What's on your mind?" maxlength="280">
+                    <img id="compose-img-preview" class="compose-img-preview" style="display:none;" alt="Image preview">
+                    <div class="compose-actions">
+                        <label for="compose-image-file" class="compose-img-btn" title="Add photo">📷 Photo</label>
+                        <input type="file" id="compose-image-file" accept="image/*" style="display:none;">
+                        <button id="compose-img-remove" class="compose-img-remove" style="display:none;">✕ Remove</button>
+                        <button id="compose-btn" class="btn-primary compose-post-btn">Post</button>
+                    </div>
+                </div>
             </div>
 
             <div id="posts-container"></div>
@@ -44,32 +50,8 @@
             <!-- Suggestions -->
             <section class="widget">
                 <h3>Suggestions</h3>
-
-                <div class="user-row">
-                    <img src="../../assets/users pfp/user-sara.jpg" alt="sara" class="avatar-img">
-                    <div class="user-info">
-                        <span class="user-name">Sara</span>
-                        <span class="user-handle">@sara</span>
-                    </div>
-                    <button class="btn-follow" data-user-id="u2">Follow</button>
-                </div>
-
-                <div class="user-row">
-                    <img src="../../assets/users pfp/user-omar.jpg" alt="omar" class="avatar-img">
-                    <div class="user-info">
-                        <span class="user-name">Omar</span>
-                        <span class="user-handle">@omar</span>
-                    </div>
-                    <button class="btn-follow" data-user-id="u3">Follow</button>
-                </div>
-
-                <div class="user-row">
-                    <img src="../../assets/users pfp/user-arabic1.jpg" alt="user" class="avatar-img">
-                    <div class="user-info">
-                        <span class="user-name">Alex</span>
-                        <span class="user-handle">@alex</span>
-                    </div>
-                    <button class="btn-follow" data-user-id="u4">Follow</button>
+                <div id="suggestions-container" class="scrollable-widget">
+                    <!-- Users will be injected here by JS -->
                 </div>
             </section>
 
@@ -105,6 +87,16 @@
         </aside>
 
     </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-nav">
+                <a href="#" class="footer-link active">Home</a>
+                <a href="../profile/profile.html" class="footer-link">Profile</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Zento. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script type="module" src="home.js"></script>
 </body>

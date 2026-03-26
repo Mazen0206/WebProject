@@ -9,6 +9,13 @@ import {
 import { createPostCard, wirePostCard } from "../../shared/post/post.js";
 
 const ROOT = "../../";
+const AVATAR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23dde1ed'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%236b7190'/%3E%3Cellipse cx='50' cy='84' rx='28' ry='22' fill='%236b7190'/%3E%3C/svg%3E";
+
+function avatarSrc(path) {
+    if (!path) return AVATAR_PLACEHOLDER;
+    if (path.startsWith("data:")) return path;
+    return ROOT + path;
+}
 
 async function main() {
     await initStorage();
@@ -31,15 +38,14 @@ async function main() {
     // Render profile header
     renderProfile(viewedUser, loggedInUser, isOwnProfile);
 
-    // Set navbar avatar
-    const navbarAvatar = document.getElementById("navbar-avatar");
-    if (navbarAvatar) navbarAvatar.src = ROOT + loggedInUser.profilePicture;
-
     // Compose section (own profile only)
     if (isOwnProfile) {
         document.getElementById("compose-section").style.display = "flex";
-        document.getElementById("compose-avatar").src = ROOT + loggedInUser.profilePicture;
-        wireCompose(currentUserId, () => renderPosts(viewedUserId, currentUserId));
+        document.getElementById("compose-avatar").src = avatarSrc(loggedInUser.profilePicture);
+        wireCompose(currentUserId, () => {
+            renderPosts(viewedUserId, currentUserId);
+            renderPhotoGrid(viewedUserId);
+        });
     }
 
     // Action button (Edit Profile vs Follow/Unfollow)
@@ -50,12 +56,23 @@ async function main() {
 
     // Initial render
     renderPosts(viewedUserId, currentUserId);
+    renderPhotoGrid(viewedUserId);
 }
 
+const COVER_FALLBACKS = [
+    "assets/Posts/post-city.jpg",
+    "assets/Posts/post-nature.jpg",
+    "assets/Posts/post-street.jpg",
+    "assets/Posts/post-appreciation.jpg",
+    "assets/Posts/post-coffee.jpg",
+    "assets/Posts/post-couch.jpg",
+];
+
 function renderProfile(viewedUser, loggedInUser, isOwnProfile) {
-    const cover = viewedUser.coverImage || "assets/Posts/post-nature.jpg";
+    const userIndex = parseInt((viewedUser.id || "u1").replace("u", ""), 10) || 1;
+    const cover = viewedUser.coverImage || COVER_FALLBACKS[(userIndex - 1) % COVER_FALLBACKS.length];
     document.getElementById("profile-cover").src = ROOT + cover;
-    document.getElementById("profile-avatar-img").src = ROOT + viewedUser.profilePicture;
+    document.getElementById("profile-avatar-img").src = avatarSrc(viewedUser.profilePicture);
 
     document.getElementById("profile-name").textContent = viewedUser.username;
     document.getElementById("profile-handle").textContent = "@" + viewedUser.username;
@@ -120,9 +137,38 @@ function toggleFollow(viewedUser, loggedInUser, currentUserId) {
 }
 
 function wireCompose(currentUserId, onPost) {
-    const input = document.getElementById("compose-input");
-    const btn = document.getElementById("compose-btn");
+    const input     = document.getElementById("compose-input");
+    const btn       = document.getElementById("compose-btn");
+    const fileInput = document.getElementById("compose-image-file");
+    const preview   = document.getElementById("compose-img-preview");
+    const removeBtn = document.getElementById("compose-img-remove");
     if (!input || !btn) return;
+
+    let pendingImage = null;
+
+    // Image picker
+    if (fileInput) {
+        fileInput.addEventListener("change", () => {
+            const file = fileInput.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                pendingImage = e.target.result;
+                if (preview) { preview.src = pendingImage; preview.style.display = "block"; }
+                if (removeBtn) removeBtn.style.display = "inline-block";
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    if (removeBtn) {
+        removeBtn.addEventListener("click", () => {
+            pendingImage = null;
+            if (fileInput) fileInput.value = "";
+            if (preview) { preview.src = ""; preview.style.display = "none"; }
+            removeBtn.style.display = "none";
+        });
+    }
 
     btn.addEventListener("click", () => {
         const content = input.value.trim();
@@ -133,13 +179,17 @@ function wireCompose(currentUserId, onPost) {
             id: "p" + Date.now(),
             userId: currentUserId,
             content,
-            image: null,
+            image: pendingImage || null,
             timestamp: new Date().toISOString(),
             likes: [],
             comments: []
         });
         savePosts(posts);
         input.value = "";
+        pendingImage = null;
+        if (fileInput) fileInput.value = "";
+        if (preview) { preview.src = ""; preview.style.display = "none"; }
+        if (removeBtn) removeBtn.style.display = "none";
         onPost();
     });
 }
@@ -204,9 +254,30 @@ function openEditModal(viewedUserId, currentUserId) {
     if (!viewedUser) return;
     document.getElementById("edit-name").value = viewedUser.username;
     document.getElementById("edit-bio").value = viewedUser.bio || "";
+
+    // Show current avatar in the preview
+    const preview = document.getElementById("edit-avatar-preview");
+    if (preview) preview.src = avatarSrc(viewedUser.profilePicture);
+
+    // Reset file input so a fresh pick is possible
+    const fileInput = document.getElementById("edit-avatar-file");
+    if (fileInput) fileInput.value = "";
+
     updateCharCount();
     document.getElementById("edit-modal").style.display = "flex";
 }
+
+// Wire avatar file picker preview live update
+document.getElementById("edit-avatar-file")?.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const preview = document.getElementById("edit-avatar-preview");
+        if (preview) preview.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+});
 
 document.getElementById("close-modal-btn")?.addEventListener("click", () => {
     document.getElementById("edit-modal").style.display = "none";
@@ -235,13 +306,55 @@ document.getElementById("edit-profile-form")?.addEventListener("submit", functio
 
     viewedUser.username = document.getElementById("edit-name").value.trim();
     viewedUser.bio = document.getElementById("edit-bio").value.trim();
+
+    // Save avatar if a new file was picked (preview src holds the base64)
+    const preview = document.getElementById("edit-avatar-preview");
+    const fileInput = document.getElementById("edit-avatar-file");
+    if (fileInput && fileInput.files.length > 0 && preview && preview.src.startsWith("data:")) {
+        viewedUser.profilePicture = preview.src;
+    }
+
     saveUsers(users);
 
     const currentUserId = getCurrentUserId() || "u1";
     const loggedInUser = users.find(u => u.id === currentUserId);
     renderProfile(viewedUser, loggedInUser, true);
+
+    // Update compose avatar
+    const composeAvatar = document.getElementById("compose-avatar");
+    if (composeAvatar) composeAvatar.src = avatarSrc(viewedUser.profilePicture);
+    
     renderPosts(viewedUserId, currentUserId);
     document.getElementById("edit-modal").style.display = "none";
 });
+
+function renderPhotoGrid(viewedUserId) {
+    const grid = document.getElementById("photo-grid");
+    const countEl = document.getElementById("photo-count");
+    const emptyEl = document.getElementById("photo-grid-empty");
+    if (!grid) return;
+
+    const allPosts = getPosts();
+    const postsWithImages = allPosts
+        .filter(p => p.userId === viewedUserId && p.image)
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+    if (countEl) countEl.textContent = postsWithImages.length + " posts";
+
+    grid.innerHTML = "";
+    if (postsWithImages.length === 0) {
+        if (emptyEl) emptyEl.style.display = "block";
+        return;
+    }
+    if (emptyEl) emptyEl.style.display = "none";
+
+    postsWithImages.forEach(post => {
+        const img = document.createElement("img");
+        img.src = ROOT + post.image;
+        img.alt = "Post photo";
+        img.className = "photo-grid-item";
+        grid.appendChild(img);
+    });
+}
 
 main();
