@@ -25,6 +25,61 @@ async function main() {
     wireComposeBox();
     wireFollowButtons();
     wireLogout();
+    wirePostModal();
+}
+
+// ─── Post Detail Modal ────────────────────────────────────────────────────────
+
+function openPostModal(postId) {
+    const users         = getUsers();
+    const posts         = getPosts();
+    const currentUserId = getCurrentUserId() || "u1";
+
+    const post = posts.find(p => p.id === postId);
+    if (!post) return;
+    const user = users.find(u => u.id === post.userId);
+    if (!user) return;
+
+    const content = document.getElementById("post-modal-content");
+    if (!content) return;
+
+    content.innerHTML = "";
+
+    const card = createPostCard(post, user, post.userId === currentUserId);
+
+    const commentsSection = card.querySelector(".comments-section");
+    if (commentsSection) commentsSection.style.display = "flex";
+
+    wirePostCard(card, post, currentUserId, () => {
+        closePostModal();
+        renderFeed();
+    });
+
+    content.appendChild(card);
+
+    const modal = document.getElementById("post-modal");
+    if (modal) {
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+}
+
+function closePostModal() {
+    const modal = document.getElementById("post-modal");
+    if (modal) modal.style.display = "none";
+    document.body.style.overflow = "";
+}
+
+function wirePostModal() {
+    document.getElementById("post-modal-close")?.addEventListener("click", closePostModal);
+
+    document.getElementById("post-modal")?.addEventListener("click", (e) => {
+        if (e.target.id === "post-modal") closePostModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closePostModal();
+    });
 }
 
 function wireLogout() {
@@ -70,6 +125,11 @@ function renderFeed() {
         const isOwner = post.userId === currentUserId;
         const card    = createPostCard(post, user, isOwner);
         wirePostCard(card, post, currentUserId, renderFeed);
+
+        // Clicking the post body or image opens the detail modal
+        card.querySelector(".post-body")?.addEventListener("click", () => openPostModal(post.id));
+        card.querySelector(".post-image")?.addEventListener("click", () => openPostModal(post.id));
+
         container.appendChild(card);
     }
 }

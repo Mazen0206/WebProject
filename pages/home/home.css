@@ -486,3 +486,96 @@
 .scrollable-widget::-webkit-scrollbar-thumb:hover {
     background-color: var(--color-text-secondary);
 }
+
+/* ───────────────────────────
+   POST DETAIL MODAL
+─────────────────────────── */
+.post-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: modal-fade-in 0.18s ease;
+}
+
+@keyframes modal-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.post-modal-box {
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
+    width: 100%;
+    max-width: 600px;
+    max-height: 88vh;
+    overflow-y: auto;
+    position: relative;
+    padding: 24px;
+    animation: modal-slide-up 0.2s ease;
+}
+
+@keyframes modal-slide-up {
+    from { transform: translateY(18px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.post-modal-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.post-modal-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.post-modal-box::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: 10px;
+}
+
+.post-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: var(--color-bg);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, color 0.15s ease;
+    z-index: 1;
+}
+
+.post-modal-close:hover {
+    background-color: #ffeaea;
+    color: #e53935;
+}
+
+/* Remove bottom margin from the card inside the modal */
+.post-modal-box .post-card {
+    margin-bottom: 0;
+    box-shadow: none;
+    border: 1px solid var(--color-border);
+}
+
+/* Post body becomes a subtle pointer hint in feed cards */
+.post-card .post-body,
+.post-card .post-image {
+    cursor: pointer;
+}
+
+.post-card .post-body:hover {
+    color: var(--color-blue);
+}
