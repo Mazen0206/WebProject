@@ -8,7 +8,6 @@ import {
 
 const ROOT = "../../";
 
-// SVG placeholder for users with no profile picture
 const AVATAR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23dde1ed'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%236b7190'/%3E%3Cellipse cx='50' cy='84' rx='28' ry='22' fill='%236b7190'/%3E%3C/svg%3E";
 
 function imgSrc(path) {
@@ -17,7 +16,6 @@ function imgSrc(path) {
     return ROOT + path;
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function timeAgo(isoString) {
     const diff = Math.floor((Date.now() - new Date(isoString)) / 1000);
@@ -27,8 +25,6 @@ function timeAgo(isoString) {
     return Math.floor(diff / 86400) + "d ago";
 }
 
-// ─── createPostCard ───────────────────────────────────────────────────────────
-// Builds and returns a DOM element for a post card.
 
 export function createPostCard(post, user, isOwner) {
     const card = document.createElement("div");
@@ -81,7 +77,6 @@ export function createPostCard(post, user, isOwner) {
         </div>
     `;
 
-    // Replace __CU__ placeholder with actual currentUserId for liked check
     const currentUserId = getCurrentUserId() || "u1";
     const likeBtn = card.querySelector(".btn-like");
     if ((post.likes || []).includes(currentUserId)) {
@@ -90,13 +85,11 @@ export function createPostCard(post, user, isOwner) {
         likeBtn.classList.remove("liked");
     }
 
-    // Render existing comments
     renderComments(card, post);
 
     return card;
 }
 
-// ─── renderComments ────────────────────────────────────────────────────────────
 
 function renderComments(card, post) {
     const list = card.querySelector(".comments-list");
@@ -120,11 +113,8 @@ function renderComments(card, post) {
     }
 }
 
-// ─── wirePostCard ──────────────────────────────────────────────────────────────
-// Attaches all event listeners to an already-created post card.
 
 export function wirePostCard(card, post, currentUserId, onUpdate) {
-    // ── Like ──
     const likeBtn = card.querySelector(".btn-like");
     if (likeBtn) {
         likeBtn.addEventListener("click", () => {
@@ -138,7 +128,6 @@ export function wirePostCard(card, post, currentUserId, onUpdate) {
                 p.likes = [...likes, currentUserId];
             }
             savePosts(posts);
-            // Update count & style without full re-render
             const countEl = likeBtn.querySelector(".like-count");
             if (countEl) countEl.textContent = p.likes.length;
             likeBtn.classList.toggle("liked", p.likes.includes(currentUserId));
@@ -146,7 +135,6 @@ export function wirePostCard(card, post, currentUserId, onUpdate) {
         });
     }
 
-    // ── Toggle Comments ──
     const commentBtn = card.querySelector(".btn-comment");
     const commentsSection = card.querySelector(".comments-section");
     if (commentBtn && commentsSection) {
@@ -156,7 +144,6 @@ export function wirePostCard(card, post, currentUserId, onUpdate) {
         });
     }
 
-    // ── Add Comment ──
     const commentInput = card.querySelector(".comment-input");
     const commentSubmit = card.querySelector(".comment-submit");
     if (commentInput && commentSubmit) {
@@ -185,7 +172,6 @@ export function wirePostCard(card, post, currentUserId, onUpdate) {
         });
     }
 
-    // ── Delete (owner only) ──
     const dotsBtn = card.querySelector(".post-dots");
     const dotsMenu = card.querySelector(".dots-menu");
     if (dotsBtn && dotsMenu) {
@@ -206,7 +192,6 @@ export function wirePostCard(card, post, currentUserId, onUpdate) {
         });
     }
 
-    // ── Share ──
     const shareBtn = card.querySelector(".btn-share");
     if (shareBtn) {
         shareBtn.addEventListener("click", () => {
@@ -219,7 +204,6 @@ export function wirePostCard(card, post, currentUserId, onUpdate) {
     }
 }
 
-// ─── Post Detail Page (shared/post/index.html) ────────────────────────────────
 
 async function main() {
     initStorage();
@@ -270,7 +254,6 @@ async function main() {
     container.appendChild(card);
 }
 
-// Only run page logic on the post detail page (has #post-container)
 if (document.getElementById("post-container")) {
     main();
 }

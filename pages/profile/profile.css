@@ -1,19 +1,11 @@
 @import url('../../shared/post/post.css');
 
-/* ───────────────────────────
-   PAGE LAYOUT
-   Mobile-first: single column, top nav
-─────────────────────────── */
 .page-layout {
     display: grid;
     grid-template-columns: 1fr;
     min-height: 100vh;
 }
 
-/* ───────────────────────────
-   LEFT SIDEBAR
-   Mobile: sticky top nav bar
-─────────────────────────── */
 .sidebar {
     background-color: var(--color-white);
     border-bottom: 1px solid var(--color-border);
@@ -82,17 +74,11 @@
     font-weight: 600;
 }
 
-/* ───────────────────────────
-   MAIN SCROLL AREA
-─────────────────────────── */
 .profile-scroll-area {
     padding: 0 24px 48px;
     min-width: 0;
 }
 
-/* ───────────────────────────
-   PROFILE HEADER CARD
-─────────────────────────── */
 .profile-header-card {
     background-color: var(--color-white);
     border-radius: 0 0 var(--radius) var(--radius);
@@ -107,7 +93,7 @@
 
 .cover-photo {
     width: 100%;
-    height: 140px; /* mobile: shorter cover */
+    height: 140px; 
     object-fit: cover;
     display: block;
     border-radius: 0;
@@ -127,16 +113,13 @@
     background-color: var(--color-bg);
 }
 
-/* ───────────────────────────
-   PROFILE INFO
-─────────────────────────── */
 .profile-info {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
     gap: 14px;
-    padding: 46px 16px 18px; /* mobile: less top padding for smaller avatar */
+    padding: 46px 16px 18px; 
 }
 
 .profile-text {
@@ -199,10 +182,6 @@
     color: var(--color-blue);
 }
 
-/* ───────────────────────────
-   TWO-COLUMN CONTENT
-   Mobile-first: single column, expands on desktop
-─────────────────────────── */
 .profile-content {
     display: grid;
     grid-template-columns: 1fr;
@@ -217,9 +196,6 @@
     min-width: 0;
 }
 
-/* ───────────────────────────
-   COMPOSE BOX
-─────────────────────────── */
 .compose-box {
     background-color: var(--color-white);
     border-radius: var(--radius);
@@ -265,7 +241,6 @@
     color: var(--color-text-secondary);
 }
 
-/* Legacy: compose box with direct input child (home page) */
 .compose-box > input {
     flex: 1;
     border: 1px solid var(--color-border);
@@ -345,9 +320,6 @@
     background-color: #fff0f0;
 }
 
-/* ───────────────────────────
-   AVATAR PICKER (Edit Modal)
-─────────────────────────── */
 .avatar-picker {
     display: flex;
     align-items: center;
@@ -411,9 +383,6 @@
     background-color: var(--color-blue-hover);
 }
 
-/* ───────────────────────────
-   POSTS / LIKES TABS
-─────────────────────────── */
 .profile-tabs {
     display: flex;
     gap: 4px;
@@ -448,9 +417,6 @@
     border-bottom-color: var(--color-blue);
 }
 
-/* ───────────────────────────
-   POSTS FEED
-─────────────────────────── */
 .posts-feed {
     display: flex;
     flex-direction: column;
@@ -469,18 +435,12 @@
     border-radius: 0 0 var(--radius) var(--radius);
 }
 
-/* ───────────────────────────
-   RIGHT SIDEBAR
-─────────────────────────── */
 .profile-sidebar {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* ───────────────────────────
-   PHOTO GRID CARD
-─────────────────────────── */
 .photo-grid-card {
     background-color: var(--color-white);
     border-radius: var(--radius);
@@ -540,9 +500,6 @@
     padding: 16px 0 4px;
 }
 
-/* ───────────────────────────
-   UNFOLLOW BUTTON
-─────────────────────────── */
 .btn-unfollow {
     background-color: transparent;
     border: 1.5px solid var(--color-border);
@@ -562,9 +519,6 @@
     color: #e53e3e;
 }
 
-/* ───────────────────────────
-   DOTS MENU DROPDOWN
-─────────────────────────── */
 .post-dots-wrapper {
     position: relative;
 }
@@ -619,9 +573,6 @@
     background-color: var(--color-bg);
 }
 
-/* ───────────────────────────
-   NO POSTS MESSAGE
-─────────────────────────── */
 .no-posts {
     text-align: center;
     color: var(--color-text-secondary);
@@ -631,9 +582,6 @@
     border-radius: 0 0 var(--radius) var(--radius);
 }
 
-/* ───────────────────────────
-   EDIT PROFILE MODAL
-─────────────────────────── */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -731,12 +679,6 @@
     color: var(--color-text-secondary);
 }
 
-/* ───────────────────────────
-   RESPONSIVE — MOBILE-FIRST
-   Using min-width like the labs teach
-─────────────────────────── */
-
-/* Tablet → left sidebar with text labels replaces bottom nav */
 @media (min-width: 640px) {
     .page-layout {
         grid-template-columns: 160px 1fr;
@@ -830,7 +772,6 @@
     }
 }
 
-/* Tablet → two-column profile content, cover photo taller */
 @media (min-width: 768px) {
     .page-layout {
         grid-template-columns: 180px 1fr;
@@ -870,7 +811,6 @@
     }
 }
 
-/* Desktop → full two-column profile layout with sidebar */
 @media (min-width: 1024px) {
     .page-layout {
         grid-template-columns: 210px 1fr;

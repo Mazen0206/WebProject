@@ -1,19 +1,11 @@
 @import url('../../shared/post/post.css');
 
-/* ───────────────────────────
-   PAGE LAYOUT
-   Mobile-first: single column, top nav
-─────────────────────────── */
 .page-layout {
     display: grid;
     grid-template-columns: 1fr;
     min-height: 100vh;
 }
 
-/* ───────────────────────────
-   LEFT SIDEBAR
-   Mobile: sticky top nav bar
-─────────────────────────── */
 .sidebar {
     background-color: var(--color-white);
     border-bottom: 1px solid var(--color-border);
@@ -94,9 +86,6 @@
     font-weight: 600;
 }
 
-/* ───────────────────────────
-   MAIN FEED
-─────────────────────────── */
 .feed {
     padding: 16px 12px 24px;
     display: flex;
@@ -110,7 +99,6 @@
     color: var(--color-text-primary);
 }
 
-/* Compose Box */
 .compose-box {
     background-color: var(--color-white);
     border-radius: var(--radius);
@@ -222,10 +210,6 @@
     background-color: #fff0f0;
 }
 
-/* ───────────────────────────
-   RIGHT SIDEBAR
-   Mobile: stacks below feed, widgets fill full width
-─────────────────────────── */
 .right-sidebar {
     border-top: 1px solid var(--color-border);
     padding: 16px;
@@ -234,7 +218,6 @@
     gap: 16px;
 }
 
-/* Widget Box */
 .widget {
     background-color: var(--color-white);
     border-radius: var(--radius);
@@ -251,7 +234,6 @@
     color: var(--color-text-primary);
 }
 
-/* User Row */
 .user-row {
     display: flex;
     align-items: center;
@@ -276,9 +258,6 @@
     color: var(--color-text-secondary);
 }
 
-/* ───────────────────────────
-   BUTTONS
-─────────────────────────── */
 .btn-primary {
     background-color: var(--color-blue);
     color: var(--color-white);
@@ -332,12 +311,6 @@
     color: #e53e3e;
 }
 
-/* ───────────────────────────
-   RESPONSIVE — MOBILE-FIRST
-   Using min-width like the labs teach
-─────────────────────────── */
-
-/* Tablet → left sidebar with text labels replaces bottom nav */
 @media (min-width: 640px) {
     .page-layout {
         grid-template-columns: 160px 1fr;
@@ -360,7 +333,7 @@
         border-right: 1px solid var(--color-border);
         box-shadow: none;
         overflow-y: auto;
-        grid-row: span 2; /* span feed + right-sidebar rows */
+        grid-row: span 2; 
     }
 
     .sidebar-logo {
@@ -406,14 +379,13 @@
     }
 }
 
-/* Large tablet → three-column layout, right sidebar beside feed */
 @media (min-width: 860px) {
     .page-layout {
         grid-template-columns: 180px 1fr 280px;
     }
 
     .sidebar {
-        grid-row: auto; /* reset the span 2 */
+        grid-row: auto; 
     }
 
     .right-sidebar {
@@ -430,7 +402,6 @@
     }
 }
 
-/* Desktop → full-width three-column layout */
 @media (min-width: 1100px) {
     .page-layout {
         grid-template-columns: 210px 1fr 280px;
@@ -458,9 +429,6 @@
     }
 }
 
-/* ───────────────────────────
-   SCROLLABLE WIDGET
-─────────────────────────── */
 .scrollable-widget {
     max-height: 320px;
     overflow-y: auto;

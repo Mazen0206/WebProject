@@ -35,10 +35,8 @@ async function main() {
 
     const isOwnProfile = viewedUserId === currentUserId;
 
-    // Render profile header
     renderProfile(viewedUser, loggedInUser, isOwnProfile);
 
-    // Compose section (own profile only)
     if (isOwnProfile) {
         document.getElementById("compose-section").style.display = "flex";
         document.getElementById("compose-avatar").src = avatarSrc(loggedInUser.profilePicture);
@@ -48,13 +46,10 @@ async function main() {
         });
     }
 
-    // Action button (Edit Profile vs Follow/Unfollow)
     wireProfileAction(viewedUser, loggedInUser, isOwnProfile, currentUserId);
 
-    // Tabs
     wireTabs(viewedUserId, currentUserId);
 
-    // Initial render
     renderPosts(viewedUserId, currentUserId);
     renderPhotoGrid(viewedUserId);
 }
@@ -146,7 +141,6 @@ function wireCompose(currentUserId, onPost) {
 
     let pendingImage = null;
 
-    // Image picker
     if (fileInput) {
         fileInput.addEventListener("change", () => {
             const file = fileInput.files[0];
@@ -247,7 +241,6 @@ function renderPosts(viewedUserId, currentUserId, tab = "posts") {
     }
 }
 
-// ─── Edit Profile Modal ─────────────────────────────────────────────────────
 
 function openEditModal(viewedUserId, currentUserId) {
     const viewedUser = getUsers().find(u => u.id === viewedUserId);
@@ -255,11 +248,9 @@ function openEditModal(viewedUserId, currentUserId) {
     document.getElementById("edit-name").value = viewedUser.username;
     document.getElementById("edit-bio").value = viewedUser.bio || "";
 
-    // Show current avatar in the preview
     const preview = document.getElementById("edit-avatar-preview");
     if (preview) preview.src = avatarSrc(viewedUser.profilePicture);
 
-    // Reset file input so a fresh pick is possible
     const fileInput = document.getElementById("edit-avatar-file");
     if (fileInput) fileInput.value = "";
 
@@ -267,7 +258,6 @@ function openEditModal(viewedUserId, currentUserId) {
     document.getElementById("edit-modal").style.display = "flex";
 }
 
-// Wire avatar file picker preview live update
 document.getElementById("edit-avatar-file")?.addEventListener("change", function () {
     const file = this.files[0];
     if (!file) return;
@@ -307,7 +297,6 @@ document.getElementById("edit-profile-form")?.addEventListener("submit", functio
     viewedUser.username = document.getElementById("edit-name").value.trim();
     viewedUser.bio = document.getElementById("edit-bio").value.trim();
 
-    // Save avatar if a new file was picked (preview src holds the base64)
     const preview = document.getElementById("edit-avatar-preview");
     const fileInput = document.getElementById("edit-avatar-file");
     if (fileInput && fileInput.files.length > 0 && preview && preview.src.startsWith("data:")) {
@@ -320,7 +309,6 @@ document.getElementById("edit-profile-form")?.addEventListener("submit", functio
     const loggedInUser = users.find(u => u.id === currentUserId);
     renderProfile(viewedUser, loggedInUser, true);
 
-    // Update compose avatar
     const composeAvatar = document.getElementById("compose-avatar");
     if (composeAvatar) composeAvatar.src = avatarSrc(viewedUser.profilePicture);
     

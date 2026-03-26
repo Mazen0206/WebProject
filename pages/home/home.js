@@ -36,7 +36,6 @@ function wireLogout() {
     });
 }
 
-// ─── Feed ─────────────────────────────────────────────────────────────────────
 
 function renderFeed() {
     const users         = getUsers();
@@ -44,7 +43,6 @@ function renderFeed() {
     const currentUser   = users.find(u => u.id === currentUserId);
     const container     = document.getElementById("posts-container");
 
-    // Set the logged-in user's avatar in the compose box
     const composeAvatar = document.getElementById("compose-avatar");
     if (composeAvatar && currentUser) {
         composeAvatar.src = avatarSrc(currentUser.profilePicture);
@@ -74,7 +72,6 @@ function renderFeed() {
     }
 }
 
-// ─── Compose Box ──────────────────────────────────────────────────────────────
 
 function wireComposeBox() {
     const input     = document.getElementById("compose-input");
@@ -135,7 +132,6 @@ function wireComposeBox() {
     });
 }
 
-// ─── Follow / Unfollow ────────────────────────────────────────────────────────
 
 function renderSuggestions() {
     const container = document.getElementById("suggestions-container");
@@ -144,7 +140,6 @@ function renderSuggestions() {
     const users = getUsers();
     const currentUserId = getCurrentUserId() || "u1";
     
-    // Get all users except the currently logged-in user
     const suggestedUsers = users.filter(u => u.id !== currentUserId);
 
     container.innerHTML = "";
@@ -177,7 +172,6 @@ function wireFollowButtons() {
         const me        = allUsers.find(u => u.id === currentUserId);
         if (!me) return;
 
-        // Set initial button label and class
         const isFollowing = me.following.includes(targetId);
         btn.textContent = isFollowing ? "Unfollow" : "Follow";
         btn.className = isFollowing ? "btn-unfollow" : "btn-follow";
