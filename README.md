@@ -37,13 +37,13 @@ All application data (users, posts, likes, comments) is stored in the browser's 
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/zento.git
+   git clone https://github.com/Mazen0206/WebProject
    ```
-2. Open `index.html` in your browser — no build tools or server needed.
+2. . Open `register.html` in your browser — no build tools or server needed. Login into a user you select from the seeded users.
 
 ## Project Links
 
-- **GitHub Repository:** 
+- **GitHub Repository:** https://github.com/Mazen0206/WebProject
 - **Live Demo:** 
 
 ## Course Info
