@@ -1,28 +1,10 @@
-const STORAGE_KEYS = {
-    users: "zento-users",
-    currentUserId: "zento-currentUserId",
-};
-
-async function initStorage() {
-    if (!localStorage.getItem(STORAGE_KEYS.users)) {
-        try {
-            const response = await fetch("../../data/storage.json");
-            const data = await response.json();
-            localStorage.setItem(STORAGE_KEYS.users, JSON.stringify(data.users));
-        } catch (err) {
-            console.error("Failed to seed storage:", err);
-        }
-    }
-}
-
-function getUsers() {
-    const saved = localStorage.getItem(STORAGE_KEYS.users);
-    return saved ? JSON.parse(saved) : [];
-}
-
-function saveUsers(users) {
-    localStorage.setItem(STORAGE_KEYS.users, JSON.stringify(users));
-}
+import {
+    initStorage,
+    getUsers,
+    saveUsers,
+    getCurrentUserId,
+    setCurrentUserId,
+} from "../../data/storage.js";
 
 function showError(message) {
     let errorEl = document.querySelector(".auth-error");
@@ -40,13 +22,13 @@ function clearError() {
 }
 
 function redirectIfLoggedIn() {
-    if (localStorage.getItem(STORAGE_KEYS.currentUserId)) {
+    if (getCurrentUserId()) {
         window.location.href = "../../pages/home/index.html";
     }
 }
 
-async function main() {
-    await initStorage();
+function main() {
+    initStorage();
     redirectIfLoggedIn();
 
     const form = document.querySelector(".auth-form");
@@ -65,10 +47,26 @@ async function main() {
                 showError("Please fill in all fields.");
                 return;
             }
+            
+            // Email format validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError("Please enter a valid email address.");
+                return;
+            }
+
             if (password.length < 8) {
                 showError("Password must be at least 8 characters.");
                 return;
             }
+            
+            // Password strength validation
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d).+$/;
+            if (!passwordRegex.test(password)) {
+                showError("Password must contain at least one uppercase letter and one number.");
+                return;
+            }
+
             if (password !== confirm) {
                 showError("Passwords do not match.");
                 return;
@@ -85,7 +83,7 @@ async function main() {
                 username: email.split("@")[0],
                 email,
                 password,
-                profilePicture: "../../assets/images/icon.png",
+                profilePicture: "",
                 bio: "",
                 following: [],
                 followers: [],
@@ -119,7 +117,7 @@ async function main() {
                 return;
             }
 
-            localStorage.setItem(STORAGE_KEYS.currentUserId, user.id);
+            setCurrentUserId(user.id);
             window.location.href = "../../pages/home/index.html";
         });
     }
