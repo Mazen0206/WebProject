@@ -1,18 +1,27 @@
+import { SEED_USERS, SEED_POSTS } from "./seed.js";
+
 const STORAGE_KEYS = {
     users: "zento-users",
     posts: "zento-posts",
     currentUserId: "zento-currentUserId",
+    seedVersion: "zento-seed-version",
 };
 
-export async function initStorage() {
-    const noUsers = !localStorage.getItem(STORAGE_KEYS.users);
-    const noPosts = !localStorage.getItem(STORAGE_KEYS.posts);
+// Bump this string whenever seed data changes to force a fresh re-seed
+const SEED_VERSION = "v2-seed";
 
-    if (noUsers || noPosts) {
-        const response = await fetch("../../data/storage.json");
-        const data = await response.json();
-        if (noUsers) localStorage.setItem(STORAGE_KEYS.users, JSON.stringify(data.users));
-        if (noPosts) localStorage.setItem(STORAGE_KEYS.posts, JSON.stringify(data.posts));
+export function initStorage() {
+    const storedVersion = localStorage.getItem(STORAGE_KEYS.seedVersion);
+    if (storedVersion !== SEED_VERSION) {
+        // Wipe stale data and re-seed from scratch
+        const currentUserId = localStorage.getItem(STORAGE_KEYS.currentUserId);
+        localStorage.setItem(STORAGE_KEYS.users, JSON.stringify(SEED_USERS));
+        localStorage.setItem(STORAGE_KEYS.posts, JSON.stringify(SEED_POSTS));
+        localStorage.setItem(STORAGE_KEYS.seedVersion, SEED_VERSION);
+        // Keep the logged-in session if there was one
+        if (currentUserId) {
+            localStorage.setItem(STORAGE_KEYS.currentUserId, currentUserId);
+        }
     }
 }
 
