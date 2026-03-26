@@ -111,7 +111,7 @@ function renderFeed() {
 
     // Filter: posts from followed users, newest first
     const feedPosts = getPosts()
-        .filter(p => (currentUser.following || []).includes(p.userId))
+        .filter(p => p.userId === currentUserId || (currentUser.following || []).includes(p.userId))
         .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
 
     container.innerHTML = "";
