@@ -455,9 +455,6 @@
     background-color: var(--color-text-secondary);
 }
 
-/* ───────────────────────────
-   POST DETAIL MODAL
-─────────────────────────── */
 .post-modal-overlay {
     position: fixed;
     inset: 0;
@@ -531,14 +528,12 @@
     color: #e53935;
 }
 
-/* Remove bottom margin from the card inside the modal */
 .post-modal-box .post-card {
     margin-bottom: 0;
     box-shadow: none;
     border: 1px solid var(--color-border);
 }
 
-/* Post body becomes a subtle pointer hint in feed cards */
 .post-card .post-body,
 .post-card .post-image {
     cursor: pointer;
