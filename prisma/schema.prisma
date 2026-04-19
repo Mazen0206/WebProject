@@ -1,0 +1,90 @@
+// Zento — Phase 2 Data Model
+//
+// The provider is SQLite for local development for zero-setup usage.
+// For production deployment on Vercel, switch the provider to "postgresql"
+// and point DATABASE_URL at a hosted Postgres instance (Neon / Supabase / Vercel Postgres).
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id             String   @id @default(cuid())
+    username       String   @unique
+    email          String   @unique
+    password       String
+    profilePicture String?
+    coverImage     String?
+    bio            String?
+    createdAt      DateTime @default(now())
+
+    posts     Post[]    @relation("UserPosts")
+    comments  Comment[] @relation("UserComments")
+    likes     Like[]    @relation("UserLikes")
+
+    // Self-referential many-to-many (followers / following) via the Follow join table
+    following Follow[]  @relation("Follower")
+    followers Follow[]  @relation("Following")
+}
+
+model Post {
+    id        String   @id @default(cuid())
+    content   String
+    image     String?
+    timestamp DateTime @default(now())
+
+    authorId  String
+    author    User     @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
+
+    likes     Like[]    @relation("PostLikes")
+    comments  Comment[] @relation("PostComments")
+
+    @@index([authorId])
+    @@index([timestamp])
+}
+
+model Comment {
+    id        String   @id @default(cuid())
+    content   String
+    timestamp DateTime @default(now())
+
+    postId    String
+    post      Post     @relation("PostComments", fields: [postId], references: [id], onDelete: Cascade)
+
+    authorId  String
+    author    User     @relation("UserComments", fields: [authorId], references: [id], onDelete: Cascade)
+
+    @@index([postId])
+    @@index([authorId])
+}
+
+model Like {
+    userId String
+    user   User   @relation("UserLikes", fields: [userId], references: [id], onDelete: Cascade)
+
+    postId String
+    post   Post   @relation("PostLikes", fields: [postId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+
+    @@id([userId, postId])
+    @@index([postId])
+}
+
+model Follow {
+    followerId  String
+    follower    User   @relation("Follower",  fields: [followerId],  references: [id], onDelete: Cascade)
+
+    followingId String
+    following   User   @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+
+    @@id([followerId, followingId])
+    @@index([followingId])
+}

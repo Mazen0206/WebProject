@@ -1,0 +1,1279 @@
+[
+    {
+        "id": "p1",
+        "userId": "u1",
+        "content": "Just deployed a new feature! Feeling great about the progress we're making.",
+        "image": "assets/Posts/post-coffee.jpg",
+        "timestamp": "2026-03-26T09:00:00Z",
+        "likes": [
+            "u2",
+            "u3",
+            "u11",
+            "u21"
+        ],
+        "comments": [
+            {
+                "id": "c1",
+                "userId": "u2",
+                "content": "Let's go! What did you ship?",
+                "timestamp": "2026-03-26T09:12:00Z"
+            },
+            {
+                "id": "c2",
+                "userId": "u3",
+                "content": "Always delivering. Nice work.",
+                "timestamp": "2026-03-26T09:25:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p2",
+        "userId": "u1",
+        "content": "There's something magical about a perfectly crafted cup of coffee before a long coding session.",
+        "image": "assets/Posts/post-nature.jpg",
+        "timestamp": "2026-03-25T14:30:00Z",
+        "likes": [
+            "u2",
+            "u5"
+        ],
+        "comments": [
+            {
+                "id": "c34",
+                "userId": "u23",
+                "content": "Great post!",
+                "timestamp": "2026-03-25T14:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p3",
+        "userId": "u1",
+        "content": "Hot take: dark mode isn't just an aesthetic choice — it's a lifestyle.",
+        "image": null,
+        "timestamp": "2026-03-24T08:15:00Z",
+        "likes": [
+            "u3",
+            "u4",
+            "u11",
+            "u30"
+        ],
+        "comments": [
+            {
+                "id": "c3",
+                "userId": "u4",
+                "content": "100% agree. Light mode users are a mystery.",
+                "timestamp": "2026-03-24T08:40:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p4",
+        "userId": "u1",
+        "content": "The city at night is just built different. Pure inspiration everywhere you look.",
+        "image": "assets/Posts/post-city.jpg",
+        "timestamp": "2026-03-22T16:45:00Z",
+        "likes": [
+            "u2",
+            "u21"
+        ],
+        "comments": [
+            {
+                "id": "c35",
+                "userId": "u29",
+                "content": "Well said.",
+                "timestamp": "2026-03-22T16:45:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p5",
+        "userId": "u1",
+        "content": "Can't believe it's already been a year since I started this journey. Thank you all for the support!",
+        "image": "assets/Posts/post-appreciation.jpg",
+        "timestamp": "2026-03-20T11:00:00Z",
+        "likes": [
+            "u2",
+            "u3",
+            "u4",
+            "u5",
+            "u21",
+            "u30"
+        ],
+        "comments": [
+            {
+                "id": "c4",
+                "userId": "u3",
+                "content": "Glad you're here!",
+                "timestamp": "2026-03-20T11:20:00Z"
+            },
+            {
+                "id": "c5",
+                "userId": "u21",
+                "content": "Here's to many more years!",
+                "timestamp": "2026-03-20T12:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p6",
+        "userId": "u2",
+        "content": "Finally finished the redesign of my portfolio. Clean, minimal, and very me.",
+        "image": "assets/Posts/post-couch.jpg",
+        "timestamp": "2026-03-26T10:30:00Z",
+        "likes": [
+            "u1",
+            "u3",
+            "u6",
+            "u7"
+        ],
+        "comments": [
+            {
+                "id": "c6",
+                "userId": "u1",
+                "content": "Looks incredible. Link?",
+                "timestamp": "2026-03-26T10:45:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p7",
+        "userId": "u2",
+        "content": "Golden hour hits different when you're finally away from your screen.",
+        "image": "assets/Posts/post-nature.jpg",
+        "timestamp": "2026-03-25T09:00:00Z",
+        "likes": [
+            "u1",
+            "u7"
+        ],
+        "comments": [
+            {
+                "id": "c36",
+                "userId": "u27",
+                "content": "Nice!",
+                "timestamp": "2026-03-25T09:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p8",
+        "userId": "u2",
+        "content": "Designing for accessibility should never be an afterthought — it's the foundation.",
+        "image": null,
+        "timestamp": "2026-03-23T17:20:00Z",
+        "likes": [
+            "u1",
+            "u3",
+            "u11",
+            "u21"
+        ],
+        "comments": [
+            {
+                "id": "c7",
+                "userId": "u11",
+                "content": "Accessibility first, always.",
+                "timestamp": "2026-03-23T17:50:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p9",
+        "userId": "u2",
+        "content": "Just discovered that my favourite coffee shop has a secret back room with power outlets everywhere. Life made.",
+        "image": "assets/Posts/post-coffee.jpg",
+        "timestamp": "2026-03-21T12:00:00Z",
+        "likes": [
+            "u1",
+            "u6"
+        ],
+        "comments": [
+            {
+                "id": "c37",
+                "userId": "u25",
+                "content": "Well said.",
+                "timestamp": "2026-03-21T12:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p10",
+        "userId": "u3",
+        "content": "Pushed a 2000-line PR today. My reviewer is going to hate me.",
+        "image": null,
+        "timestamp": "2026-03-26T07:45:00Z",
+        "likes": [
+            "u1",
+            "u2",
+            "u11"
+        ],
+        "comments": [
+            {
+                "id": "c8",
+                "userId": "u2",
+                "content": "Split it into smaller PRs next time!",
+                "timestamp": "2026-03-26T08:10:00Z"
+            },
+            {
+                "id": "c9",
+                "userId": "u1",
+                "content": "Bold strategy. I respect it.",
+                "timestamp": "2026-03-26T08:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p11",
+        "userId": "u3",
+        "content": "Nature walks between meetings are genuinely the best productivity hack.",
+        "image": "assets/Posts/post-nature.jpg",
+        "timestamp": "2026-03-24T19:10:00Z",
+        "likes": [
+            "u1",
+            "u2"
+        ],
+        "comments": [
+            {
+                "id": "c38",
+                "userId": "u12",
+                "content": "100% accurate.",
+                "timestamp": "2026-03-24T19:10:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p12",
+        "userId": "u3",
+        "content": "Unpopular opinion: writing documentation is actually fun when you care about your users.",
+        "image": "assets/Posts/post-city.jpg",
+        "timestamp": "2026-03-22T13:30:00Z",
+        "likes": [
+            "u2",
+            "u21"
+        ],
+        "comments": [
+            {
+                "id": "c10",
+                "userId": "u21",
+                "content": "Genuinely an underrated skill.",
+                "timestamp": "2026-03-22T14:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p13",
+        "userId": "u3",
+        "content": "Debugging is just being a detective in a crime where you are also the murderer.",
+        "image": null,
+        "timestamp": "2026-03-19T10:00:00Z",
+        "likes": [
+            "u1",
+            "u2",
+            "u4",
+            "u5"
+        ],
+        "comments": [
+            {
+                "id": "c11",
+                "userId": "u5",
+                "content": "This is the most accurate thing I've read today.",
+                "timestamp": "2026-03-19T10:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p14",
+        "userId": "u4",
+        "content": "Shipped an accessible dropdown component that works with keyboard AND screen readers. Small win, big deal.",
+        "image": "assets/Posts/post-couch.jpg",
+        "timestamp": "2026-03-25T16:00:00Z",
+        "likes": [
+            "u1",
+            "u11",
+            "u12"
+        ],
+        "comments": [
+            {
+                "id": "c39",
+                "userId": "u23",
+                "content": "Nice!",
+                "timestamp": "2026-03-25T16:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p15",
+        "userId": "u4",
+        "content": "Working from a couch with no back support is a trap. I fall for it every single week.",
+        "image": null,
+        "timestamp": "2026-03-23T09:45:00Z",
+        "likes": [
+            "u1",
+            "u10",
+            "u22"
+        ],
+        "comments": [
+            {
+                "id": "c12",
+                "userId": "u10",
+                "content": "A trap we all willingly walk into.",
+                "timestamp": "2026-03-23T10:10:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p16",
+        "userId": "u4",
+        "content": "Every great app started as a terrible prototype. Keep building.",
+        "image": "assets/Posts/post-street.jpg",
+        "timestamp": "2026-03-21T14:00:00Z",
+        "likes": [
+            "u1",
+            "u5",
+            "u12"
+        ],
+        "comments": [
+            {
+                "id": "c40",
+                "userId": "u23",
+                "content": "Thanks for sharing.",
+                "timestamp": "2026-03-21T14:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p17",
+        "userId": "u5",
+        "content": "Started learning Rust today. My brain hurts in a good way.",
+        "image": "assets/Posts/post-appreciation.jpg",
+        "timestamp": "2026-03-26T08:30:00Z",
+        "likes": [
+            "u1",
+            "u13",
+            "u14"
+        ],
+        "comments": [
+            {
+                "id": "c13",
+                "userId": "u1",
+                "content": "Rust is worth every headache!",
+                "timestamp": "2026-03-26T09:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p18",
+        "userId": "u5",
+        "content": "Appreciation post for everyone who writes clear commit messages. You are the real MVPs.",
+        "image": null,
+        "timestamp": "2026-03-24T11:15:00Z",
+        "likes": [
+            "u1",
+            "u3",
+            "u14",
+            "u15"
+        ],
+        "comments": [
+            {
+                "id": "c41",
+                "userId": "u6",
+                "content": "Thanks for sharing.",
+                "timestamp": "2026-03-24T11:15:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p19",
+        "userId": "u5",
+        "content": "That moment when the bug you've been hunting for 3 hours was just a missing semicolon.",
+        "image": "assets/Posts/post-coffee.jpg",
+        "timestamp": "2026-03-22T15:30:00Z",
+        "likes": [
+            "u1",
+            "u4",
+            "u13"
+        ],
+        "comments": [
+            {
+                "id": "c14",
+                "userId": "u13",
+                "content": "Every time. Without fail.",
+                "timestamp": "2026-03-22T15:55:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p20",
+        "userId": "u6",
+        "content": "Design systems are love letters to future-you.",
+        "image": "assets/Posts/post-nature.jpg",
+        "timestamp": "2026-03-25T12:00:00Z",
+        "likes": [
+            "u2",
+            "u12",
+            "u17",
+            "u18"
+        ],
+        "comments": [
+            {
+                "id": "c42",
+                "userId": "u12",
+                "content": "Well said.",
+                "timestamp": "2026-03-25T12:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p21",
+        "userId": "u6",
+        "content": "Had the most inspiring 1:1 with a junior dev today. Their questions made me think differently.",
+        "image": null,
+        "timestamp": "2026-03-23T18:45:00Z",
+        "likes": [
+            "u2",
+            "u17"
+        ],
+        "comments": [
+            {
+                "id": "c15",
+                "userId": "u2",
+                "content": "Junior devs asking the right questions is everything.",
+                "timestamp": "2026-03-23T19:05:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p22",
+        "userId": "u6",
+        "content": "Morning routine: wake up, coffee, scroll through color palettes. Perfect.",
+        "image": "assets/Posts/post-city.jpg",
+        "timestamp": "2026-03-20T09:30:00Z",
+        "likes": [
+            "u2",
+            "u18",
+            "u22"
+        ],
+        "comments": [
+            {
+                "id": "c43",
+                "userId": "u28",
+                "content": "100% accurate.",
+                "timestamp": "2026-03-20T09:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p23",
+        "userId": "u7",
+        "content": "The best architecture is the one you don't have to think about.",
+        "image": "assets/Posts/post-couch.jpg",
+        "timestamp": "2026-03-26T11:00:00Z",
+        "likes": [
+            "u2",
+            "u19",
+            "u20",
+            "u23"
+        ],
+        "comments": [
+            {
+                "id": "c44",
+                "userId": "u28",
+                "content": "Well said.",
+                "timestamp": "2026-03-26T11:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p24",
+        "userId": "u7",
+        "content": "Cities are the most complex systems humans have ever built. Urban planning and software have more in common than you think.",
+        "image": "assets/Posts/post-city.jpg",
+        "timestamp": "2026-03-24T14:00:00Z",
+        "likes": [
+            "u2",
+            "u21"
+        ],
+        "comments": [
+            {
+                "id": "c16",
+                "userId": "u21",
+                "content": "Traffic flow and load balancing — practically the same problem.",
+                "timestamp": "2026-03-24T14:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p25",
+        "userId": "u7",
+        "content": "Team standup at 9 AM is just yoga for engineers. Stretches your reasoning before the day begins.",
+        "image": null,
+        "timestamp": "2026-03-21T10:30:00Z",
+        "likes": [
+            "u2",
+            "u12",
+            "u20"
+        ],
+        "comments": [
+            {
+                "id": "c45",
+                "userId": "u15",
+                "content": "Awesome!",
+                "timestamp": "2026-03-21T10:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p26",
+        "userId": "u8",
+        "content": "Finished migrating a legacy monolith to microservices. Never again. (Until the next project.)",
+        "image": null,
+        "timestamp": "2026-03-25T08:00:00Z",
+        "likes": [
+            "u3",
+            "u13",
+            "u23"
+        ],
+        "comments": [
+            {
+                "id": "c17",
+                "userId": "u3",
+                "content": "The cycle of pain.",
+                "timestamp": "2026-03-25T08:25:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p27",
+        "userId": "u8",
+        "content": "Product roadmaps are just fan fiction for your startup.",
+        "image": "assets/Posts/post-appreciation.jpg",
+        "timestamp": "2026-03-22T16:00:00Z",
+        "likes": [
+            "u3",
+            "u24"
+        ],
+        "comments": [
+            {
+                "id": "c46",
+                "userId": "u1",
+                "content": "So true.",
+                "timestamp": "2026-03-22T16:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p28",
+        "userId": "u9",
+        "content": "Our deployment pipeline now runs in under 4 minutes. That's 3 months of work paying off.",
+        "image": "assets/Posts/post-coffee.jpg",
+        "timestamp": "2026-03-26T13:30:00Z",
+        "likes": [
+            "u3",
+            "u25",
+            "u26"
+        ],
+        "comments": [
+            {
+                "id": "c18",
+                "userId": "u26",
+                "content": "4 minutes is insane. What's your stack?",
+                "timestamp": "2026-03-26T13:55:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p29",
+        "userId": "u9",
+        "content": "Spent the afternoon reading about distributed consensus algorithms. My brain is a pretzel now.",
+        "image": null,
+        "timestamp": "2026-03-23T11:00:00Z",
+        "likes": [
+            "u3",
+            "u27"
+        ],
+        "comments": [
+            {
+                "id": "c47",
+                "userId": "u23",
+                "content": "Totally agree with this.",
+                "timestamp": "2026-03-23T11:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p30",
+        "userId": "u10",
+        "content": "Our ML model hit 94% accuracy today. The team is buzzing with excitement.",
+        "image": "assets/Posts/post-nature.jpg",
+        "timestamp": "2026-03-25T17:00:00Z",
+        "likes": [
+            "u4",
+            "u13",
+            "u28",
+            "u29"
+        ],
+        "comments": [
+            {
+                "id": "c19",
+                "userId": "u4",
+                "content": "Incredible milestone! Congrats to the whole team.",
+                "timestamp": "2026-03-25T17:20:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p31",
+        "userId": "u10",
+        "content": "You don't need a 10x engineer. You need 10 engineers who communicate clearly.",
+        "image": null,
+        "timestamp": "2026-03-22T08:30:00Z",
+        "likes": [
+            "u4",
+            "u23",
+            "u30"
+        ],
+        "comments": [
+            {
+                "id": "c20",
+                "userId": "u23",
+                "content": "This should be on every job posting.",
+                "timestamp": "2026-03-22T08:55:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p32",
+        "userId": "u11",
+        "content": "Mobile-first isn't just a design principle. It's empathy for 4 billion people.",
+        "image": null,
+        "timestamp": "2026-03-24T10:00:00Z",
+        "likes": [
+            "u4",
+            "u2"
+        ],
+        "comments": [
+            {
+                "id": "c48",
+                "userId": "u5",
+                "content": "Great post!",
+                "timestamp": "2026-03-24T10:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p33",
+        "userId": "u12",
+        "content": "The color of a button can make or break your conversion rate. I've seen it happen live.",
+        "image": "assets/Posts/post-couch.jpg",
+        "timestamp": "2026-03-23T15:30:00Z",
+        "likes": [
+            "u4",
+            "u6"
+        ],
+        "comments": [
+            {
+                "id": "c49",
+                "userId": "u17",
+                "content": "Love this.",
+                "timestamp": "2026-03-23T15:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p34",
+        "userId": "u13",
+        "content": "Zero-days don't scare me. Misconfigured permissions do.",
+        "image": null,
+        "timestamp": "2026-03-25T09:15:00Z",
+        "likes": [
+            "u5",
+            "u9"
+        ],
+        "comments": [
+            {
+                "id": "c21",
+                "userId": "u9",
+                "content": "The most dangerous vulnerabilities are always the obvious ones.",
+                "timestamp": "2026-03-25T09:40:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p35",
+        "userId": "u14",
+        "content": "Content is the hardest part of any product. Underestimated every single time.",
+        "image": "assets/Posts/post-street.jpg",
+        "timestamp": "2026-03-24T12:45:00Z",
+        "likes": [
+            "u5",
+            "u6"
+        ],
+        "comments": [
+            {
+                "id": "c50",
+                "userId": "u13",
+                "content": "Awesome!",
+                "timestamp": "2026-03-24T12:45:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p36",
+        "userId": "u15",
+        "content": "Indie game dev update: the final boss is now beatable but still terrifying.",
+        "image": null,
+        "timestamp": "2026-03-23T14:00:00Z",
+        "likes": [
+            "u5",
+            "u14",
+            "u16"
+        ],
+        "comments": [
+            {
+                "id": "c22",
+                "userId": "u14",
+                "content": "Cannot wait to play it!",
+                "timestamp": "2026-03-23T14:20:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p37",
+        "userId": "u16",
+        "content": "Training a model on bad data is like teaching with wrong textbooks. Garbage in, garbage out.",
+        "image": "assets/Posts/post-appreciation.jpg",
+        "timestamp": "2026-03-22T17:30:00Z",
+        "likes": [
+            "u6",
+            "u10",
+            "u25"
+        ],
+        "comments": [
+            {
+                "id": "c51",
+                "userId": "u11",
+                "content": "Totally agree with this.",
+                "timestamp": "2026-03-22T17:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p38",
+        "userId": "u17",
+        "content": "Technical writing tip: write for the user you wish you had been, not the user you are now.",
+        "image": null,
+        "timestamp": "2026-03-21T09:00:00Z",
+        "likes": [
+            "u6",
+            "u15"
+        ],
+        "comments": [
+            {
+                "id": "c52",
+                "userId": "u5",
+                "content": "Great post!",
+                "timestamp": "2026-03-21T09:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p39",
+        "userId": "u18",
+        "content": "The hardest part of building a startup isn't the code — it's saying no to good ideas.",
+        "image": "assets/Posts/post-coffee.jpg",
+        "timestamp": "2026-03-20T13:15:00Z",
+        "likes": [
+            "u6",
+            "u16",
+            "u23"
+        ],
+        "comments": [
+            {
+                "id": "c23",
+                "userId": "u16",
+                "content": "Prioritization is everything.",
+                "timestamp": "2026-03-20T13:40:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p40",
+        "userId": "u19",
+        "content": "Every photo tells a story. Even the ones where nothing seems to happen.",
+        "image": "assets/Posts/post-nature.jpg",
+        "timestamp": "2026-03-19T16:00:00Z",
+        "likes": [
+            "u7",
+            "u26"
+        ],
+        "comments": [
+            {
+                "id": "c53",
+                "userId": "u9",
+                "content": "100% accurate.",
+                "timestamp": "2026-03-19T16:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p41",
+        "userId": "u20",
+        "content": "Ran 10K this morning before breakfast. Nothing is impossible before 8 AM apparently.",
+        "image": null,
+        "timestamp": "2026-03-18T10:30:00Z",
+        "likes": [
+            "u7",
+            "u28",
+            "u29"
+        ],
+        "comments": [
+            {
+                "id": "c24",
+                "userId": "u28",
+                "content": "This is elite behavior.",
+                "timestamp": "2026-03-18T10:55:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p42",
+        "userId": "u21",
+        "content": "What if code was poetry and every function was a haiku? Just a Tuesday thought.",
+        "image": null,
+        "timestamp": "2026-03-17T14:00:00Z",
+        "likes": [
+            "u7",
+            "u3"
+        ],
+        "comments": [
+            {
+                "id": "c54",
+                "userId": "u30",
+                "content": "Nice!",
+                "timestamp": "2026-03-17T14:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p43",
+        "userId": "u22",
+        "content": "Drawing is debugging for the soul.",
+        "image": "assets/Posts/post-couch.jpg",
+        "timestamp": "2026-03-16T08:45:00Z",
+        "likes": [
+            "u8",
+            "u6"
+        ],
+        "comments": [
+            {
+                "id": "c55",
+                "userId": "u1",
+                "content": "Interesting perspective.",
+                "timestamp": "2026-03-16T08:45:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p44",
+        "userId": "u23",
+        "content": "Your network latency is someone's real-time experience. Optimize accordingly.",
+        "image": "assets/Posts/post-street.jpg",
+        "timestamp": "2026-03-15T11:30:00Z",
+        "likes": [
+            "u8",
+            "u7",
+            "u10"
+        ],
+        "comments": [
+            {
+                "id": "c25",
+                "userId": "u7",
+                "content": "Latency is the invisible UX tax.",
+                "timestamp": "2026-03-15T11:50:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p45",
+        "userId": "u24",
+        "content": "Reading papers at midnight and calling it 'research'. This is fine.",
+        "image": null,
+        "timestamp": "2026-03-14T15:00:00Z",
+        "likes": [
+            "u8",
+            "u9"
+        ],
+        "comments": [
+            {
+                "id": "c56",
+                "userId": "u17",
+                "content": "100% accurate.",
+                "timestamp": "2026-03-14T15:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p46",
+        "userId": "u25",
+        "content": "Wrote a smart contract that locks tokens until a specific block. The future is programmable money.",
+        "image": null,
+        "timestamp": "2026-03-13T09:30:00Z",
+        "likes": [
+            "u9",
+            "u18"
+        ],
+        "comments": [
+            {
+                "id": "c26",
+                "userId": "u18",
+                "content": "DeFi is wild. Would love to chat more about this.",
+                "timestamp": "2026-03-13T09:55:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p47",
+        "userId": "u26",
+        "content": "Teaching a 12-year-old to write their first for-loop today. Priceless reaction when it worked.",
+        "image": "assets/Posts/post-appreciation.jpg",
+        "timestamp": "2026-03-12T13:00:00Z",
+        "likes": [
+            "u9",
+            "u5",
+            "u14"
+        ],
+        "comments": [
+            {
+                "id": "c57",
+                "userId": "u29",
+                "content": "Totally agree with this.",
+                "timestamp": "2026-03-12T13:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p48",
+        "userId": "u27",
+        "content": "My smart fridge now sends me push notifications when I'm low on milk. The future is weird.",
+        "image": null,
+        "timestamp": "2026-03-11T10:15:00Z",
+        "likes": [
+            "u9",
+            "u20"
+        ],
+        "comments": [
+            {
+                "id": "c27",
+                "userId": "u20",
+                "content": "Need this in my life immediately.",
+                "timestamp": "2026-03-11T10:40:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p49",
+        "userId": "u28",
+        "content": "Got our Series A funding news today. Wild feeling seeing years of work suddenly validated.",
+        "image": "assets/Posts/post-coffee.jpg",
+        "timestamp": "2026-03-10T14:30:00Z",
+        "likes": [
+            "u10",
+            "u18",
+            "u23",
+            "u24",
+            "u25"
+        ],
+        "comments": [
+            {
+                "id": "c28",
+                "userId": "u18",
+                "content": "CONGRATULATIONS! You earned every penny of it!",
+                "timestamp": "2026-03-10T14:45:00Z"
+            },
+            {
+                "id": "c29",
+                "userId": "u25",
+                "content": "Massive. Well deserved!",
+                "timestamp": "2026-03-10T15:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p50",
+        "userId": "u29",
+        "content": "Working from Lisbon this week. The timezone is manageable, the pastéis are better.",
+        "image": "assets/Posts/post-city.jpg",
+        "timestamp": "2026-03-09T09:00:00Z",
+        "likes": [
+            "u10",
+            "u20",
+            "u30"
+        ],
+        "comments": [
+            {
+                "id": "c30",
+                "userId": "u30",
+                "content": "Lisbon is magic. Enjoy every second!",
+                "timestamp": "2026-03-09T09:20:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p51",
+        "userId": "u1",
+        "content": "When your code compiles on the first try but you have no idea why.",
+        "image": "assets/Posts/COMPUTER MEME.jpg",
+        "timestamp": "2026-03-27T10:00:00Z",
+        "likes": [
+            "u2",
+            "u3",
+            "u4"
+        ],
+        "comments": [
+            {
+                "id": "c31",
+                "userId": "u2",
+                "content": "Relatable.",
+                "timestamp": "2026-03-27T10:15:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p52",
+        "userId": "u2",
+        "content": "My new setup! Finally got the dual monitors working perfectly.",
+        "image": "assets/Posts/COMPUTER.jpg",
+        "timestamp": "2026-03-27T11:30:00Z",
+        "likes": [
+            "u1",
+            "u5",
+            "u6"
+        ],
+        "comments": [
+            {
+                "id": "c58",
+                "userId": "u7",
+                "content": "Totally agree with this.",
+                "timestamp": "2026-03-27T11:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p53",
+        "userId": "u3",
+        "content": "Me looking at the code I wrote 6 months ago...",
+        "image": "assets/Posts/CRINGE MEME.jpg",
+        "timestamp": "2026-03-27T14:45:00Z",
+        "likes": [
+            "u1",
+            "u4",
+            "u7"
+        ],
+        "comments": [
+            {
+                "id": "c59",
+                "userId": "u9",
+                "content": "Love this.",
+                "timestamp": "2026-03-27T14:45:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p54",
+        "userId": "u4",
+        "content": "When you find a bug in production on a Friday evening.",
+        "image": "assets/Posts/HARAM MEME.jpg",
+        "timestamp": "2026-03-27T16:20:00Z",
+        "likes": [
+            "u2",
+            "u5",
+            "u8"
+        ],
+        "comments": [
+            {
+                "id": "c32",
+                "userId": "u5",
+                "content": "Never deploy on Fridays!",
+                "timestamp": "2026-03-27T16:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p55",
+        "userId": "u5",
+        "content": "Took a break to hike this weekend. The view was absolutely worth the climb.",
+        "image": "assets/Posts/MOUNTAIN VIEW.jpg",
+        "timestamp": "2026-03-28T09:00:00Z",
+        "likes": [
+            "u1",
+            "u2",
+            "u3",
+            "u6"
+        ],
+        "comments": [
+            {
+                "id": "c60",
+                "userId": "u18",
+                "content": "Great post!",
+                "timestamp": "2026-03-28T09:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p56",
+        "userId": "u6",
+        "content": "Back to the office. The coffee machine is finally fixed!",
+        "image": "assets/Posts/OFFICE.jpg",
+        "timestamp": "2026-03-28T10:30:00Z",
+        "likes": [
+            "u4",
+            "u7",
+            "u9"
+        ],
+        "comments": [
+            {
+                "id": "c61",
+                "userId": "u26",
+                "content": "Awesome!",
+                "timestamp": "2026-03-28T10:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p57",
+        "userId": "u7",
+        "content": "A little motivation for everyone grinding today. Keep pushing!",
+        "image": "assets/Posts/QUOTE 1.jpg",
+        "timestamp": "2026-03-28T12:15:00Z",
+        "likes": [
+            "u1",
+            "u5",
+            "u10"
+        ],
+        "comments": [
+            {
+                "id": "c62",
+                "userId": "u6",
+                "content": "100% accurate.",
+                "timestamp": "2026-03-28T12:15:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p58",
+        "userId": "u8",
+        "content": "Words to live by. Sometimes you just need to step back and breathe.",
+        "image": "assets/Posts/QUOTE2.jpg",
+        "timestamp": "2026-03-28T14:00:00Z",
+        "likes": [
+            "u2",
+            "u6",
+            "u11"
+        ],
+        "comments": [
+            {
+                "id": "c63",
+                "userId": "u28",
+                "content": "Well said.",
+                "timestamp": "2026-03-28T14:00:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p59",
+        "userId": "u9",
+        "content": "Found this quote today and it really resonated with me.",
+        "image": "assets/Posts/QUOTE3.jpg",
+        "timestamp": "2026-03-28T15:45:00Z",
+        "likes": [
+            "u3",
+            "u7",
+            "u12"
+        ],
+        "comments": [
+            {
+                "id": "c64",
+                "userId": "u10",
+                "content": "Thanks for sharing.",
+                "timestamp": "2026-03-28T15:45:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p60",
+        "userId": "u10",
+        "content": "Daily reminder to stay focused on your goals.",
+        "image": "assets/Posts/QUOTE4.jpg",
+        "timestamp": "2026-03-28T17:30:00Z",
+        "likes": [
+            "u4",
+            "u8",
+            "u13"
+        ],
+        "comments": [
+            {
+                "id": "c65",
+                "userId": "u7",
+                "content": "Thanks for sharing.",
+                "timestamp": "2026-03-28T17:30:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p61",
+        "userId": "u11",
+        "content": "Just finished redecorating my room. Loving the new vibe!",
+        "image": "assets/Posts/ROOM.jpg",
+        "timestamp": "2026-03-29T08:20:00Z",
+        "likes": [
+            "u1",
+            "u5",
+            "u9"
+        ],
+        "comments": [
+            {
+                "id": "c66",
+                "userId": "u24",
+                "content": "100% accurate.",
+                "timestamp": "2026-03-29T08:20:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p62",
+        "userId": "u12",
+        "content": "Me running away from my responsibilities like...",
+        "image": "assets/Posts/RUNNING MEME.jpg",
+        "timestamp": "2026-03-29T10:10:00Z",
+        "likes": [
+            "u2",
+            "u6",
+            "u10"
+        ],
+        "comments": [
+            {
+                "id": "c33",
+                "userId": "u1",
+                "content": "Too real 😂",
+                "timestamp": "2026-03-29T10:25:00Z"
+            }
+        ]
+    },
+    {
+        "id": "p63",
+        "userId": "u30",
+        "content": "Just setting up my profile here! Excited to connect with everyone.",
+        "image": null,
+        "timestamp": "2026-03-30T10:00:00Z",
+        "likes": [
+            "u1",
+            "u2"
+        ],
+        "comments": [
+            {
+                "id": "c67",
+                "userId": "u26",
+                "content": "Awesome!",
+                "timestamp": "2026-03-30T10:00:00Z"
+            }
+        ]
+    }
+]
