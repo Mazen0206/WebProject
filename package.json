@@ -1,0 +1,28 @@
+{
+  "name": "zento",
+  "version": "2.0.0",
+  "description": "Zento — Social Media Platform (Phase 2)",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:push": "prisma db push",
+    "db:seed": "node prisma/seed.js",
+    "db:reset": "prisma db push --force-reset && node prisma/seed.js",
+    "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.22.0"
+  }
+}
