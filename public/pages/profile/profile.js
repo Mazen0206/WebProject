@@ -1,38 +1,45 @@
-import {
-    initStorage,
-    getUsers,
-    saveUsers,
-    getPosts,
-    savePosts,
-    getCurrentUserId,
-} from "../../data/storage.js";
+import { api, getCurrentUserId } from "../../shared/api.js";
 import { createPostCard, wirePostCard } from "../../shared/post/post.js";
 
-const ROOT = "../../";
 const AVATAR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23dde1ed'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%236b7190'/%3E%3Cellipse cx='50' cy='84' rx='28' ry='22' fill='%236b7190'/%3E%3C/svg%3E";
 
 function avatarSrc(path) {
     if (!path) return AVATAR_PLACEHOLDER;
-    if (path.startsWith("data:")) return path;
-    return ROOT + path;
+    if (path.startsWith("data:") || path.startsWith("http")) return path;
+    return "/" + path;
 }
 
-async function main() {
-    await initStorage();
+const COVER_FALLBACKS = [
+    "assets/Posts/post-city.jpg",
+    "assets/Posts/post-nature.jpg",
+    "assets/Posts/post-street.jpg",
+    "assets/Posts/post-appreciation.jpg",
+    "assets/Posts/post-coffee.jpg",
+    "assets/Posts/post-couch.jpg",
+];
 
-    const users = getUsers();
-    const currentUserId = getCurrentUserId() || "u1";
+async function main() {
+    const currentUserId = getCurrentUserId();
+    if (!currentUserId) {
+        window.location.href = "/pages/auth/login.html";
+        return;
+    }
+
     const params = new URLSearchParams(window.location.search);
     const viewedUserId = params.get("userId") || currentUserId;
 
-    const viewedUser = users.find(u => u.id === viewedUserId);
-    const loggedInUser = users.find(u => u.id === currentUserId);
+    const [viewedRes, meRes] = await Promise.all([
+        api.getUser(viewedUserId).catch(() => null),
+        api.getUser(currentUserId),
+    ]);
 
-    if (!viewedUser || !loggedInUser) {
+    if (!viewedRes || !meRes) {
         document.body.innerHTML = "<p>User not found.</p>";
         return;
     }
 
+    const viewedUser   = viewedRes.user;
+    const loggedInUser = meRes.user;
     const isOwnProfile = viewedUserId === currentUserId;
 
     renderProfile(viewedUser, loggedInUser, isOwnProfile);
@@ -47,36 +54,27 @@ async function main() {
     }
 
     wireProfileAction(viewedUser, loggedInUser, isOwnProfile, currentUserId);
-
     wireTabs(viewedUserId, currentUserId);
 
     renderPosts(viewedUserId, currentUserId);
     renderPhotoGrid(viewedUserId);
 }
 
-const COVER_FALLBACKS = [
-    "assets/Posts/post-city.jpg",
-    "assets/Posts/post-nature.jpg",
-    "assets/Posts/post-street.jpg",
-    "assets/Posts/post-appreciation.jpg",
-    "assets/Posts/post-coffee.jpg",
-    "assets/Posts/post-couch.jpg",
-];
-
 function renderProfile(viewedUser, loggedInUser, isOwnProfile) {
-    const userIndex = parseInt((viewedUser.id || "u1").replace("u", ""), 10) || 1;
-    const cover = viewedUser.coverImage || COVER_FALLBACKS[(userIndex - 1) % COVER_FALLBACKS.length];
-    document.getElementById("profile-cover").src = ROOT + cover;
+    const userHash = Math.abs([...(viewedUser.id || "")].reduce((acc, c) => acc + c.charCodeAt(0), 0)) || 1;
+    let cover = viewedUser.coverImage || COVER_FALLBACKS[userHash % COVER_FALLBACKS.length];
+    if (!cover.startsWith("data:") && !cover.startsWith("http") && !cover.startsWith("/")) {
+        cover = "/" + cover;
+    }
+    document.getElementById("profile-cover").src = cover;
     document.getElementById("profile-avatar-img").src = avatarSrc(viewedUser.profilePicture);
 
     document.getElementById("profile-name").textContent = viewedUser.username;
     document.getElementById("profile-handle").textContent = "@" + viewedUser.username;
     document.getElementById("profile-bio").textContent = viewedUser.bio || "";
 
-    const following = viewedUser.following || [];
-    const followers = viewedUser.followers || [];
-    document.getElementById("following-count").textContent = following.length;
-    document.getElementById("followers-count").textContent = followers.length;
+    document.getElementById("following-count").textContent = (viewedUser.following || []).length;
+    document.getElementById("followers-count").textContent = (viewedUser.followers || []).length;
 
     const actionBtn = document.getElementById("profile-action-btn");
     if (isOwnProfile) {
@@ -91,44 +89,28 @@ function renderProfile(viewedUser, loggedInUser, isOwnProfile) {
 
 function wireProfileAction(viewedUser, loggedInUser, isOwnProfile, currentUserId) {
     const actionBtn = document.getElementById("profile-action-btn");
-    actionBtn.addEventListener("click", () => {
+    actionBtn.addEventListener("click", async () => {
         if (isOwnProfile) {
-            openEditModal(viewedUser.id, currentUserId);
-        } else {
-            const users = getUsers();
-            toggleFollow(
-                users.find(u => u.id === viewedUser.id),
-                users.find(u => u.id === currentUserId),
-                currentUserId
-            );
+            openEditModal(viewedUser);
+            return;
         }
+
+        const isFollowing = (loggedInUser.following || []).includes(viewedUser.id);
+
+        if (isFollowing) {
+            await api.unfollow(viewedUser.id, currentUserId);
+        } else {
+            await api.follow(viewedUser.id, currentUserId);
+        }
+
+        const [{ user: fresh }, { user: freshMe }] = await Promise.all([
+            api.getUser(viewedUser.id),
+            api.getUser(currentUserId),
+        ]);
+        renderProfile(fresh, freshMe, false);
+        // Rebind with updated loggedInUser so subsequent clicks are correct
+        loggedInUser.following = freshMe.following;
     });
-}
-
-function toggleFollow(viewedUser, loggedInUser, currentUserId) {
-    const users = getUsers();
-    const me = users.find(u => u.id === currentUserId);
-    const target = users.find(u => u.id === viewedUser.id);
-    if (!me || !target) return;
-
-    const myFollowing = me.following || [];
-    const targetFollowers = target.followers || [];
-
-    if (myFollowing.includes(target.id)) {
-        me.following = myFollowing.filter(id => id !== target.id);
-        target.followers = targetFollowers.filter(id => id !== currentUserId);
-    } else {
-        me.following = [...myFollowing, target.id];
-        target.followers = [...targetFollowers, currentUserId];
-    }
-
-    saveUsers(users);
-    const fresh = getUsers();
-    renderProfile(
-        fresh.find(u => u.id === target.id),
-        fresh.find(u => u.id === currentUserId),
-        false
-    );
 }
 
 function wireCompose(currentUserId, onPost) {
@@ -164,21 +146,10 @@ function wireCompose(currentUserId, onPost) {
         });
     }
 
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
         const content = input.value.trim();
         if (!content) return;
-
-        const posts = getPosts();
-        posts.push({
-            id: "p" + Date.now(),
-            userId: currentUserId,
-            content,
-            image: pendingImage || null,
-            timestamp: new Date().toISOString(),
-            likes: [],
-            comments: []
-        });
-        savePosts(posts);
+        await api.createPost({ authorId: currentUserId, content, image: pendingImage || null });
         input.value = "";
         pendingImage = null;
         if (fileInput) fileInput.value = "";
@@ -205,34 +176,19 @@ function wireTabs(viewedUserId, currentUserId) {
     });
 }
 
-function renderPosts(viewedUserId, currentUserId, tab = "posts") {
+async function renderPosts(viewedUserId, currentUserId, tab = "posts") {
     const container = document.getElementById("posts-container");
-    const users = getUsers();
-    const allPosts = getPosts();
-    const viewedUser = users.find(u => u.id === viewedUserId);
-
-    let posts;
-    if (tab === "likes") {
-        posts = allPosts
-            .filter(p => (p.likes || []).includes(viewedUserId))
-            .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-    } else {
-        posts = allPosts
-            .filter(p => p.userId === viewedUserId)
-            .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-    }
+    const { posts } = await api.getUserPosts(viewedUserId, tab);
 
     container.innerHTML = "";
-    if (posts.length === 0) {
+    if (!posts.length) {
         container.innerHTML = "<p class='no-posts'>No posts yet.</p>";
         return;
     }
 
-    const isOwner = viewedUserId === currentUserId;
     for (const post of posts) {
-        const user = users.find(u => u.id === post.userId);
-        if (!user) continue;
-        const card = createPostCard(post, user, isOwner);
+        const isOwner = post.authorId === currentUserId;
+        const card = createPostCard(post, post.author, isOwner);
         wirePostCard(card, post, currentUserId, () => {
             const activeTab = document.getElementById("likes-tab-btn").classList.contains("active") ? "likes" : "posts";
             renderPosts(viewedUserId, currentUserId, activeTab);
@@ -241,10 +197,7 @@ function renderPosts(viewedUserId, currentUserId, tab = "posts") {
     }
 }
 
-
-function openEditModal(viewedUserId, currentUserId) {
-    const viewedUser = getUsers().find(u => u.id === viewedUserId);
-    if (!viewedUser) return;
+function openEditModal(viewedUser) {
     document.getElementById("edit-name").value = viewedUser.username;
     document.getElementById("edit-bio").value = viewedUser.bio || "";
 
@@ -253,6 +206,18 @@ function openEditModal(viewedUserId, currentUserId) {
 
     const fileInput = document.getElementById("edit-avatar-file");
     if (fileInput) fileInput.value = "";
+
+    const userHash = Math.abs([...(viewedUser.id || "")].reduce((acc, c) => acc + c.charCodeAt(0), 0)) || 1;
+    let cover = viewedUser.coverImage || COVER_FALLBACKS[userHash % COVER_FALLBACKS.length];
+    if (!cover.startsWith("data:") && !cover.startsWith("http") && !cover.startsWith("/")) {
+        cover = "/" + cover;
+    }
+    
+    const coverPreview = document.getElementById("edit-cover-preview");
+    if (coverPreview) coverPreview.src = cover;
+
+    const coverInput = document.getElementById("edit-cover-file");
+    if (coverInput) coverInput.value = "";
 
     updateCharCount();
     document.getElementById("edit-modal").style.display = "flex";
@@ -264,6 +229,17 @@ document.getElementById("edit-avatar-file")?.addEventListener("change", function
     const reader = new FileReader();
     reader.onload = (e) => {
         const preview = document.getElementById("edit-avatar-preview");
+        if (preview) preview.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+});
+
+document.getElementById("edit-cover-file")?.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        const preview = document.getElementById("edit-cover-preview");
         if (preview) preview.src = e.target.result;
     };
     reader.readAsDataURL(file);
@@ -285,47 +261,53 @@ function updateCharCount() {
     if (el && bio) el.textContent = bio.value.length + " / 150";
 }
 
-document.getElementById("edit-profile-form")?.addEventListener("submit", function (e) {
+document.getElementById("edit-profile-form")?.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const params = new URLSearchParams(window.location.search);
-    const viewedUserId = params.get("userId") || getCurrentUserId() || "u1";
-    const users = getUsers();
-    const viewedUser = users.find(u => u.id === viewedUserId);
-    if (!viewedUser) return;
+    const viewedUserId = params.get("userId") || getCurrentUserId();
+    const currentUserId = getCurrentUserId();
 
-    viewedUser.username = document.getElementById("edit-name").value.trim();
-    viewedUser.bio = document.getElementById("edit-bio").value.trim();
+    const updates = {
+        username: document.getElementById("edit-name").value.trim(),
+        bio:      document.getElementById("edit-bio").value.trim(),
+    };
 
     const preview = document.getElementById("edit-avatar-preview");
     const fileInput = document.getElementById("edit-avatar-file");
     if (fileInput && fileInput.files.length > 0 && preview && preview.src.startsWith("data:")) {
-        viewedUser.profilePicture = preview.src;
+        updates.profilePicture = preview.src;
     }
 
-    saveUsers(users);
+    const coverPreview = document.getElementById("edit-cover-preview");
+    const coverInput = document.getElementById("edit-cover-file");
+    if (coverInput && coverInput.files.length > 0 && coverPreview && coverPreview.src.startsWith("data:")) {
+        updates.coverImage = coverPreview.src;
+    }
 
-    const currentUserId = getCurrentUserId() || "u1";
-    const loggedInUser = users.find(u => u.id === currentUserId);
+    await api.updateUser(viewedUserId, updates);
+
+    const [{ user: viewedUser }, { user: loggedInUser }] = await Promise.all([
+        api.getUser(viewedUserId),
+        api.getUser(currentUserId),
+    ]);
     renderProfile(viewedUser, loggedInUser, true);
 
     const composeAvatar = document.getElementById("compose-avatar");
     if (composeAvatar) composeAvatar.src = avatarSrc(viewedUser.profilePicture);
-    
+
     renderPosts(viewedUserId, currentUserId);
     document.getElementById("edit-modal").style.display = "none";
 });
 
-function renderPhotoGrid(viewedUserId) {
+async function renderPhotoGrid(viewedUserId) {
     const grid = document.getElementById("photo-grid");
     const countEl = document.getElementById("photo-count");
     const emptyEl = document.getElementById("photo-grid-empty");
     if (!grid) return;
 
-    const allPosts = getPosts();
-    const postsWithImages = allPosts
-        .filter(p => p.userId === viewedUserId && p.image)
-        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    const { posts } = await api.getUserPosts(viewedUserId, "posts");
+    const postsWithImages = posts.filter(p => p.image);
 
     if (countEl) countEl.textContent = postsWithImages.length + " posts";
 
@@ -338,7 +320,7 @@ function renderPhotoGrid(viewedUserId) {
 
     postsWithImages.forEach(post => {
         const img = document.createElement("img");
-        img.src = ROOT + post.image;
+        img.src = avatarSrc(post.image);
         img.alt = "Post photo";
         img.className = "photo-grid-item";
         grid.appendChild(img);

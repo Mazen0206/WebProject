@@ -1,10 +1,4 @@
-import {
-    initStorage,
-    getUsers,
-    saveUsers,
-    getCurrentUserId,
-    setCurrentUserId,
-} from "../../data/storage.js";
+import { api, getCurrentUserId, setCurrentUserId } from "../../shared/api.js";
 
 function showError(message) {
     let errorEl = document.querySelector(".auth-error");
@@ -19,23 +13,24 @@ function showError(message) {
 function clearError() {
     const errorEl = document.querySelector(".auth-error");
     if (errorEl) errorEl.textContent = "";
+    const successEl = document.querySelector(".auth-success");
+    if (successEl) successEl.remove();
 }
 
 function redirectIfLoggedIn() {
     if (getCurrentUserId()) {
-        window.location.href = "../../pages/home/index.html";
+        window.location.href = "/pages/home/index.html";
     }
 }
 
 function main() {
-    initStorage();
     redirectIfLoggedIn();
 
     const form = document.querySelector(".auth-form");
     const path = window.location.pathname;
 
     if (path.includes("register")) {
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
             clearError();
 
@@ -47,8 +42,7 @@ function main() {
                 showError("Please fill in all fields.");
                 return;
             }
-            
-            // Email format validation
+
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
                 showError("Please enter a valid email address.");
@@ -59,8 +53,7 @@ function main() {
                 showError("Password must be at least 8 characters.");
                 return;
             }
-            
-            // Password strength validation
+
             const passwordRegex = /^(?=.*[A-Z])(?=.*\d).+$/;
             if (!passwordRegex.test(password)) {
                 showError("Password must contain at least one uppercase letter and one number.");
@@ -72,31 +65,29 @@ function main() {
                 return;
             }
 
-            const users = getUsers();
-            if (users.find((u) => u.email === email)) {
-                showError("An account with this email already exists.");
-                return;
+            try {
+                await api.register({ email, password });
+                
+                // Show success message
+                const successEl = document.createElement("p");
+                successEl.className = "auth-success";
+                successEl.style.color = "#10b981";
+                successEl.style.marginTop = "10px";
+                successEl.style.fontWeight = "500";
+                successEl.textContent = "Registration successful! Redirecting to login...";
+                document.querySelector(".auth-form").prepend(successEl);
+                
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1500);
+            } catch (err) {
+                showError(err.message || "Registration failed.");
             }
-
-            const newUser = {
-                id: "u" + (users.length + 1),
-                username: email.split("@")[0],
-                email,
-                password,
-                profilePicture: "",
-                bio: "",
-                following: [],
-                followers: [],
-            };
-
-            users.push(newUser);
-            saveUsers(users);
-            window.location.href = "login.html";
         });
     }
 
     if (path.includes("login")) {
-        form.addEventListener("submit", (e) => {
+        form.addEventListener("submit", async (e) => {
             e.preventDefault();
             clearError();
 
@@ -108,17 +99,13 @@ function main() {
                 return;
             }
 
-            const user = getUsers().find(
-                (u) => u.email === email && u.password === password
-            );
-
-            if (!user) {
-                showError("Invalid email or password.");
-                return;
+            try {
+                const { user } = await api.login({ email, password });
+                setCurrentUserId(user.id);
+                window.location.href = "/pages/home/index.html";
+            } catch (err) {
+                showError(err.message || "Invalid email or password.");
             }
-
-            setCurrentUserId(user.id);
-            window.location.href = "../../pages/home/index.html";
         });
     }
 }
