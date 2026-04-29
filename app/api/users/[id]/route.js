@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { getUserById, updateUser } from "@/lib/repository";
 
 export async function GET(_request, { params }) {
-    const user = await getUserById(params.id);
+    const { id } = await params;
+    const user = await getUserById(id);
     if (!user) return NextResponse.json({ error: "User not found." }, { status: 404 });
 
     const { password: _pw, ...safe } = user;
@@ -16,8 +17,9 @@ export async function GET(_request, { params }) {
 }
 
 export async function PATCH(request, { params }) {
+    const { id } = await params;
     const body = (await request.json()) || {};
-    const updated = await updateUser(params.id, {
+    const updated = await updateUser(id, {
         username:       body.username,
         bio:            body.bio,
         profilePicture: body.profilePicture,

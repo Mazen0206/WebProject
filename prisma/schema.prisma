@@ -10,7 +10,6 @@ generator client {
 
 datasource db {
     provider = "sqlite"
-    url      = env("DATABASE_URL")
 }
 
 model User {
@@ -23,13 +22,13 @@ model User {
     bio            String?
     createdAt      DateTime @default(now())
 
-    posts     Post[]    @relation("UserPosts")
-    comments  Comment[] @relation("UserComments")
-    likes     Like[]    @relation("UserLikes")
+    posts    Post[]    @relation("UserPosts")
+    comments Comment[] @relation("UserComments")
+    likes    Like[]    @relation("UserLikes")
 
     // Self-referential many-to-many (followers / following) via the Follow join table
-    following Follow[]  @relation("Follower")
-    followers Follow[]  @relation("Following")
+    following Follow[] @relation("Follower")
+    followers Follow[] @relation("Following")
 }
 
 model Post {
@@ -38,11 +37,11 @@ model Post {
     image     String?
     timestamp DateTime @default(now())
 
-    authorId  String
-    author    User     @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
+    authorId String
+    author   User   @relation("UserPosts", fields: [authorId], references: [id], onDelete: Cascade)
 
-    likes     Like[]    @relation("PostLikes")
-    comments  Comment[] @relation("PostComments")
+    likes    Like[]    @relation("PostLikes")
+    comments Comment[] @relation("PostComments")
 
     @@index([authorId])
     @@index([timestamp])
@@ -53,11 +52,11 @@ model Comment {
     content   String
     timestamp DateTime @default(now())
 
-    postId    String
-    post      Post     @relation("PostComments", fields: [postId], references: [id], onDelete: Cascade)
+    postId String
+    post   Post   @relation("PostComments", fields: [postId], references: [id], onDelete: Cascade)
 
-    authorId  String
-    author    User     @relation("UserComments", fields: [authorId], references: [id], onDelete: Cascade)
+    authorId String
+    author   User   @relation("UserComments", fields: [authorId], references: [id], onDelete: Cascade)
 
     @@index([postId])
     @@index([authorId])
@@ -77,8 +76,8 @@ model Like {
 }
 
 model Follow {
-    followerId  String
-    follower    User   @relation("Follower",  fields: [followerId],  references: [id], onDelete: Cascade)
+    followerId String
+    follower   User   @relation("Follower", fields: [followerId], references: [id], onDelete: Cascade)
 
     followingId String
     following   User   @relation("Following", fields: [followingId], references: [id], onDelete: Cascade)

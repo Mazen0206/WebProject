@@ -8,10 +8,17 @@
  */
 
 const { PrismaClient } = require("@prisma/client");
+const { PrismaBetterSqlite3 } = require("@prisma/adapter-better-sqlite3");
 const fs = require("node:fs");
 const path = require("node:path");
 
-const prisma = new PrismaClient();
+function getSqliteUrl() {
+    const rawUrl = process.env.DATABASE_URL || "file:./prisma/dev.db";
+    return rawUrl.startsWith("file:") ? rawUrl.slice(5) : rawUrl;
+}
+
+const adapter = new PrismaBetterSqlite3({ url: getSqliteUrl() });
+const prisma = new PrismaClient({ adapter });
 
 function loadJson(fileName) {
     const fullPath = path.join(__dirname, "data", fileName);
