@@ -19,13 +19,47 @@ export function clearSession() {
     localStorage.removeItem(SESSION_KEY);
 }
 
+/**
+ * Validates the stored session against the database.
+ * Returns the userId if the session is valid, otherwise clears localStorage
+ * and returns null so the caller can redirect to login.
+ */
+export async function validateSession() {
+    const id = getCurrentUserId();
+    if (!id) return null;
+    try {
+        await request(`/api/users/${id}`);
+        return id;
+    } catch {
+        clearSession();
+        return null;
+    }
+}
+
 async function request(url, options = {}) {
-    const res = await fetch(url, {
-        headers: { "Content-Type": "application/json" },
-        ...options,
-    });
+    let res;
+    try {
+        res = await fetch(url, {
+            headers: { "Content-Type": "application/json" },
+            ...options,
+        });
+    } catch {
+        throw new Error("Network error — please check your connection and try again.");
+    }
+
     const text = await res.text();
-    const data = text ? JSON.parse(text) : {};
+    let data = {};
+    try {
+        data = text ? JSON.parse(text) : {};
+    } catch {
+        // The server returned a non-JSON body (e.g. an HTML error page).
+        throw new Error(
+            res.ok
+                ? "Unexpected server response. Please try again."
+                : `Server error (${res.status}). Please try again.`
+        );
+    }
+
     if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
     return data;
 }
@@ -39,6 +73,8 @@ export const api = {
     getUser:        (id)         => request(`/api/users/${id}`),
     updateUser:     (id, data)   => request(`/api/users/${id}`, { method: "PATCH", body: JSON.stringify(data) }),
     getSuggestions: (currentUserId) => request(`/api/users?suggestFor=${currentUserId}`),
+    searchUsers: (query, currentUserId) =>
+        request(`/api/users?q=${encodeURIComponent(query)}&currentUserId=${currentUserId || ""}`),
 
     follow:   (targetId, followerId) =>
         request(`/api/users/${targetId}/follow`, {
