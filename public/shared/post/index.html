@@ -14,13 +14,12 @@
         <a href="../home/index.html" class="navbar-logo">
             <img src="../../assets/images/zento_logo.png" alt="Zento">
         </a>
-        <div class="navbar-search">
+        <div class="navbar-search" style="position:relative;">
             <span class="search-icon">⌕</span>
-            <input type="text" placeholder="Search">
+            <input id="user-search-input" type="text" placeholder="Search users...">
+            <div id="user-search-results" class="user-search-results" style="display:none; left:0; right:0;"></div>
         </div>
         <div class="navbar-actions">
-            <button class="icon-btn">✉</button>
-            <button class="icon-btn">🔔</button>
             <img id="navbar-avatar" src="" alt="me" class="avatar-img">
             <a href="../profile/profile.html" class="home-dropdown">Profile ▾</a>
         </div>

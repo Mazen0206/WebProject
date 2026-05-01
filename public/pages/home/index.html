@@ -16,7 +16,7 @@
             </div>
 
             <nav class="sidebar-nav">
-                <a href="#" class="nav-link active"><span class="nav-text">Home</span></a>
+                <a href="index.html" class="nav-link active"><span class="nav-text">Home</span></a>
                 <a href="../profile/profile.html" class="nav-link"><span class="nav-text">Profile</span></a>
                 <a href="/statistics" class="nav-link"><span class="nav-text">Statistics</span></a>
                 <button id="logout-btn" class="nav-link nav-logout"><span class="nav-text">Logout</span></button>
@@ -46,37 +46,16 @@
         <aside class="right-sidebar">
 
             <section class="widget">
-                <h3>Suggestions</h3>
-                <div id="suggestions-container" class="scrollable-widget">
+                <h3>Find People</h3>
+                <div class="search-widget">
+                    <input id="user-search-input" type="text" placeholder="Search by username..." class="user-search-input" autocomplete="off">
+                    <div id="user-search-results" class="user-search-results"></div>
                 </div>
             </section>
 
-            <section class="widget">
-                <h3>Notes</h3>
-
-                <div class="user-row">
-                    <img src="../../assets/users pfp/user-maro.jpg" alt="maro" class="avatar-img">
-                    <div class="user-info">
-                        <span class="user-name">Maro</span>
-                        <span class="user-handle">Just deployed my project 🚀</span>
-                    </div>
-                </div>
-
-                <div class="user-row">
-                    <img src="../../assets/users pfp/user-sara.jpg" alt="sara" class="avatar-img">
-                    <div class="user-info">
-                        <span class="user-name">Sara</span>
-                        <span class="user-handle">Reading a great book today 📚</span>
-                    </div>
-                </div>
-
-                <div class="user-row">
-                    <img src="../../assets/users pfp/user-arabic2.jpg" alt="user" class="avatar-img">
-                    <div class="user-info">
-                        <span class="user-name">Omar</span>
-                        <span class="user-handle">Morning run done. Feeling great!</span>
-                    </div>
-                </div>
+            <section class="widget" id="suggestions-widget">
+                <h3>Suggested for you</h3>
+                <div id="suggestions-container" class="suggestions-list"></div>
             </section>
 
         </aside>
@@ -86,7 +65,7 @@
     <footer class="site-footer">
         <div class="footer-inner">
             <div class="footer-nav">
-                <a href="#" class="footer-link active">Home</a>
+                <a href="index.html" class="footer-link active">Home</a>
                 <a href="../profile/profile.html" class="footer-link">Profile</a>
                 <a href="/statistics" class="footer-link">Statistics</a>
             </div>
