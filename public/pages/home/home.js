@@ -1,4 +1,4 @@
-import { api, getCurrentUserId, clearSession } from "../../shared/api.js";
+import { api, getCurrentUserId, clearSession, validateSession } from "../../shared/api.js";
 import { createPostCard, wirePostCard } from "../../shared/post/post.js";
 
 const AVATAR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23dde1ed'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%236b7190'/%3E%3Cellipse cx='50' cy='84' rx='28' ry='22' fill='%236b7190'/%3E%3C/svg%3E";
@@ -10,17 +10,18 @@ function avatarSrc(path) {
 }
 
 async function main() {
-    const currentUserId = getCurrentUserId();
+    const currentUserId = await validateSession();
     if (!currentUserId) {
         window.location.href = "/pages/auth/login.html";
         return;
     }
 
     await renderFeed();
-    await renderSuggestions();
+    renderSuggestions();
     wireComposeBox();
     wireLogout();
     wirePostModal();
+    wireUserSearch(currentUserId);
 }
 
 // ─── Post Detail Modal ────────────────────────────────────────────────────────
@@ -171,38 +172,131 @@ function wireComposeBox() {
     });
 }
 
+
 async function renderSuggestions() {
     const container = document.getElementById("suggestions-container");
+    const widget    = document.getElementById("suggestions-widget");
     if (!container) return;
 
     const currentUserId = getCurrentUserId();
-    const { users } = await api.getSuggestions(currentUserId);
+    let users = [];
+    try {
+        ({ users } = await api.getSuggestions(currentUserId));
+    } catch { return; }
+
+    if (!users.length) {
+        if (widget) widget.style.display = "none";
+        return;
+    }
 
     container.innerHTML = "";
-
     users.forEach(user => {
         const row = document.createElement("div");
         row.className = "user-row";
         row.innerHTML = `
-            <a href="/pages/profile/profile.html?userId=${user.id}" style="display:contents;">
-                <img src="${avatarSrc(user.profilePicture)}" alt="${user.username}" class="avatar-img">
-            </a>
-            <div class="user-info">
-                <a href="/pages/profile/profile.html?userId=${user.id}" class="user-name" style="text-decoration:none; color:inherit;">${user.username}</a>
+            <img src="${avatarSrc(user.profilePicture)}" alt="${user.username}" class="avatar-img" style="cursor:pointer;">
+            <div class="user-info" style="cursor:pointer;">
+                <span class="user-name">${user.username}</span>
                 <span class="user-handle">@${user.username}</span>
             </div>
             <button class="btn-follow" data-user-id="${user.id}">Follow</button>
         `;
-        container.appendChild(row);
+
+        row.querySelector(".avatar-img").addEventListener("click", () => {
+            window.location.href = `/pages/profile/profile.html?userId=${user.id}`;
+        });
+        row.querySelector(".user-info").addEventListener("click", () => {
+            window.location.href = `/pages/profile/profile.html?userId=${user.id}`;
+        });
 
         const btn = row.querySelector(".btn-follow");
         btn.addEventListener("click", async () => {
             await api.follow(user.id, currentUserId);
             btn.textContent = "Following";
             btn.disabled = true;
+            btn.classList.remove("btn-follow");
             btn.classList.add("btn-unfollow");
+            row.querySelector(".btn-unfollow").style.cursor = "default";
             renderFeed();
         });
+
+        container.appendChild(row);
+    });
+}
+
+function wireUserSearch(currentUserId) {
+    const input   = document.getElementById("user-search-input");
+    const results = document.getElementById("user-search-results");
+    if (!input || !results) return;
+
+    let debounceTimer = null;
+
+    input.addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        const q = input.value.trim();
+
+        if (!q) {
+            results.style.display = "none";
+            results.innerHTML = "";
+            return;
+        }
+
+        debounceTimer = setTimeout(async () => {
+            const { users } = await api.searchUsers(q, currentUserId);
+            results.innerHTML = "";
+
+            if (!users.length) {
+                results.innerHTML = `<p class="user-search-empty">No results for "<strong>${q}</strong>"</p>`;
+                results.style.display = "block";
+                return;
+            }
+
+            users.forEach(user => {
+                const row = document.createElement("div");
+                row.className = "search-result-row";
+                row.innerHTML = `
+                    <img src="${avatarSrc(user.profilePicture)}" alt="${user.username}" class="avatar-img search-result-avatar">
+                    <div class="search-result-info">
+                        <span class="search-result-name">${user.username}</span>
+                        <span class="search-result-handle">@${user.username}</span>
+                    </div>
+                    <button class="search-follow-btn" data-uid="${user.id}">Follow</button>
+                `;
+
+                row.querySelector(".search-result-avatar").addEventListener("click", () => {
+                    window.location.href = `/pages/profile/profile.html?userId=${user.id}`;
+                });
+                row.querySelector(".search-result-info").addEventListener("click", () => {
+                    window.location.href = `/pages/profile/profile.html?userId=${user.id}`;
+                });
+
+                const followBtn = row.querySelector(".search-follow-btn");
+                followBtn.addEventListener("click", async (e) => {
+                    e.stopPropagation();
+                    await api.follow(user.id, currentUserId);
+                    followBtn.textContent = "Following";
+                    followBtn.disabled = true;
+                    followBtn.classList.add("search-follow-btn--done");
+                    renderFeed();
+                });
+
+                results.appendChild(row);
+            });
+
+            results.style.display = "block";
+        }, 200);
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!input.contains(e.target) && !results.contains(e.target)) {
+            results.style.display = "none";
+        }
+    });
+
+    input.addEventListener("focus", () => {
+        if (input.value.trim() && results.children.length) {
+            results.style.display = "block";
+        }
     });
 }
 

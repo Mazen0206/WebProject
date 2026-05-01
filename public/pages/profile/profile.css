@@ -861,3 +861,127 @@
         padding: 28px;
     }
 }
+
+/* ── User Search Widget ─────────────────────────────────────────────────────── */
+
+.search-widget {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-search-input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-size: 14px;
+    font-family: system-ui, -apple-system, sans-serif;
+    outline: none;
+    color: var(--color-text-primary);
+    background: var(--color-bg);
+    transition: border-color 0.2s ease;
+}
+
+.user-search-input:focus {
+    border-color: var(--color-blue);
+    background: #fff;
+}
+
+.user-search-results {
+    display: none;
+    margin-top: 6px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    max-height: 360px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.user-search-results[style*="block"] {
+    display: block;
+}
+
+.search-result-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--color-border);
+    transition: background 0.12s;
+}
+
+.search-result-row:last-child {
+    border-bottom: none;
+}
+
+.search-result-row:hover {
+    background: var(--color-bg);
+}
+
+.search-result-avatar {
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.search-result-info {
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.search-result-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-result-handle {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+}
+
+.search-follow-btn {
+    flex-shrink: 0;
+    background: transparent;
+    border: 1.5px solid var(--color-blue);
+    color: var(--color-blue);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.search-follow-btn:hover {
+    background: var(--color-blue);
+    color: #fff;
+}
+
+.search-follow-btn--done {
+    border-color: var(--color-border);
+    color: var(--color-text-secondary);
+    cursor: default;
+}
+
+.search-follow-btn--done:hover {
+    background: transparent;
+    color: var(--color-text-secondary);
+}
+
+.user-search-empty {
+    padding: 16px 12px;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    text-align: center;
+}

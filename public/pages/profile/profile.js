@@ -1,4 +1,4 @@
-import { api, getCurrentUserId } from "../../shared/api.js";
+import { api, getCurrentUserId, validateSession } from "../../shared/api.js";
 import { createPostCard, wirePostCard } from "../../shared/post/post.js";
 
 const AVATAR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23dde1ed'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%236b7190'/%3E%3Cellipse cx='50' cy='84' rx='28' ry='22' fill='%236b7190'/%3E%3C/svg%3E";
@@ -19,7 +19,7 @@ const COVER_FALLBACKS = [
 ];
 
 async function main() {
-    const currentUserId = getCurrentUserId();
+    const currentUserId = await validateSession();
     if (!currentUserId) {
         window.location.href = "/pages/auth/login.html";
         return;
@@ -55,6 +55,7 @@ async function main() {
 
     wireProfileAction(viewedUser, loggedInUser, isOwnProfile, currentUserId);
     wireTabs(viewedUserId, currentUserId);
+    wireUserSearch(currentUserId);
 
     renderPosts(viewedUserId, currentUserId);
     renderPhotoGrid(viewedUserId);
@@ -324,6 +325,81 @@ async function renderPhotoGrid(viewedUserId) {
         img.alt = "Post photo";
         img.className = "photo-grid-item";
         grid.appendChild(img);
+    });
+}
+
+function wireUserSearch(currentUserId) {
+    const input   = document.getElementById("user-search-input");
+    const results = document.getElementById("user-search-results");
+    if (!input || !results) return;
+
+    let debounceTimer = null;
+
+    input.addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        const q = input.value.trim();
+
+        if (!q) {
+            results.style.display = "none";
+            results.innerHTML = "";
+            return;
+        }
+
+        debounceTimer = setTimeout(async () => {
+            const { users } = await api.searchUsers(q, currentUserId);
+            results.innerHTML = "";
+
+            if (!users.length) {
+                results.innerHTML = `<p class="user-search-empty">No results for "<strong>${q}</strong>"</p>`;
+                results.style.display = "block";
+                return;
+            }
+
+            users.forEach(user => {
+                const row = document.createElement("div");
+                row.className = "search-result-row";
+                row.innerHTML = `
+                    <img src="${avatarSrc(user.profilePicture)}" alt="${user.username}" class="avatar-img search-result-avatar">
+                    <div class="search-result-info">
+                        <span class="search-result-name">${user.username}</span>
+                        <span class="search-result-handle">@${user.username}</span>
+                    </div>
+                    <button class="search-follow-btn" data-uid="${user.id}">Follow</button>
+                `;
+
+                row.querySelector(".search-result-avatar").addEventListener("click", () => {
+                    window.location.href = `/pages/profile/profile.html?userId=${user.id}`;
+                });
+                row.querySelector(".search-result-info").addEventListener("click", () => {
+                    window.location.href = `/pages/profile/profile.html?userId=${user.id}`;
+                });
+
+                const followBtn = row.querySelector(".search-follow-btn");
+                followBtn.addEventListener("click", async (e) => {
+                    e.stopPropagation();
+                    await api.follow(user.id, currentUserId);
+                    followBtn.textContent = "Following";
+                    followBtn.disabled = true;
+                    followBtn.classList.add("search-follow-btn--done");
+                });
+
+                results.appendChild(row);
+            });
+
+            results.style.display = "block";
+        }, 200);
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!input.contains(e.target) && !results.contains(e.target)) {
+            results.style.display = "none";
+        }
+    });
+
+    input.addEventListener("focus", () => {
+        if (input.value.trim() && results.children.length) {
+            results.style.display = "block";
+        }
     });
 }
 
