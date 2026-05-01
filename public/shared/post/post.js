@@ -1,4 +1,4 @@
-import { api, getCurrentUserId } from "../api.js";
+import { api, getCurrentUserId, validateSession } from "../api.js";
 
 const AVATAR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23dde1ed'/%3E%3Ccircle cx='50' cy='38' r='18' fill='%236b7190'/%3E%3Cellipse cx='50' cy='84' rx='28' ry='22' fill='%236b7190'/%3E%3C/svg%3E";
 
@@ -216,7 +216,7 @@ export function wirePostCard(card, post, currentUserId, onUpdate, onComment) {
 
 // ── Standalone post detail page ─────────────────────────────────────────────
 async function main() {
-    const currentUserId = getCurrentUserId();
+    const currentUserId = await validateSession();
     if (!currentUserId) {
         window.location.href = "/pages/auth/login.html";
         return;
@@ -263,6 +263,68 @@ async function main() {
     });
 
     container.appendChild(card);
+    wireUserSearch(currentUserId);
+}
+
+function wireUserSearch(currentUserId) {
+    const input   = document.getElementById("user-search-input");
+    const results = document.getElementById("user-search-results");
+    if (!input || !results) return;
+
+    let debounceTimer = null;
+
+    input.addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        const q = input.value.trim();
+
+        if (!q) {
+            results.style.display = "none";
+            results.innerHTML = "";
+            return;
+        }
+
+        debounceTimer = setTimeout(async () => {
+            const { users } = await api.searchUsers(q, currentUserId);
+            results.innerHTML = "";
+
+            if (!users.length) {
+                results.innerHTML = `<p class="user-search-empty">No users found for "${q}".</p>`;
+                results.style.display = "block";
+                return;
+            }
+
+            users.forEach(user => {
+                const row = document.createElement("div");
+                row.className = "user-row";
+                row.style.cssText = "display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--color-border);";
+                row.innerHTML = `
+                    <img src="${imgSrc(user.profilePicture)}" alt="${user.username}" class="avatar-img">
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-weight:600;font-size:14px;">${user.username}</div>
+                        <div style="color:var(--color-text-secondary);font-size:12px;">@${user.username}</div>
+                    </div>
+                `;
+                row.addEventListener("click", () => {
+                    window.location.href = `/pages/profile/profile.html?userId=${user.id}`;
+                });
+                results.appendChild(row);
+            });
+
+            results.style.display = "block";
+        }, 300);
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!input.contains(e.target) && !results.contains(e.target)) {
+            results.style.display = "none";
+        }
+    });
+
+    input.addEventListener("focus", () => {
+        if (input.value.trim() && results.innerHTML) {
+            results.style.display = "block";
+        }
+    });
 }
 
 if (document.getElementById("post-container")) {

@@ -1,4 +1,4 @@
-import { api, getCurrentUserId, setCurrentUserId } from "../../shared/api.js";
+import { api, getCurrentUserId, clearSession, setCurrentUserId, validateSession } from "../../shared/api.js";
 
 function showError(message) {
     let errorEl = document.querySelector(".auth-error");
@@ -17,8 +17,9 @@ function clearError() {
     if (successEl) successEl.remove();
 }
 
-function redirectIfLoggedIn() {
-    if (getCurrentUserId()) {
+async function redirectIfLoggedIn() {
+    const id = await validateSession();
+    if (id) {
         window.location.href = "/pages/home/index.html";
     }
 }

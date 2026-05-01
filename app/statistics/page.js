@@ -9,6 +9,7 @@ import {
     getMostFollowedUser,
 } from "@/lib/statistics";
 
+import AuthGuard from "./AuthGuard";
 import "./statistics.css";
 
 export const dynamic = "force-dynamic";
@@ -66,16 +67,18 @@ export default async function StatisticsPage() {
 
     return (
         <div className="stats-page">
-            <header className="stats-header">
-                <a href="/pages/home/index.html" className="stats-brand" style={{ textDecoration: 'none', color: 'inherit' }}>
-                    <img src="/assets/images/zento_logo.png" alt="Zento" style={{ height: '32px' }} />
-                </a>
-                <nav className="stats-nav">
-                    <a href="/pages/home/index.html">Home</a>
-                    <a href="/pages/profile/profile.html">Profile</a>
-                    <a href="/statistics" className="active">Statistics</a>
+            <AuthGuard />
+
+            <aside className="stats-sidebar">
+                <div className="stats-sidebar-logo">
+                    <img src="/assets/images/zento_logo.png" alt="Zento" />
+                </div>
+                <nav className="stats-sidebar-nav">
+                    <a href="/pages/home/index.html" className="stats-nav-link">Home</a>
+                    <a href="/pages/profile/profile.html" className="stats-nav-link">Profile</a>
+                    <a href="/statistics" className="stats-nav-link stats-nav-link--active">Statistics</a>
                 </nav>
-            </header>
+            </aside>
 
             <main className="stats-main">
                 <section className="stats-hero">
