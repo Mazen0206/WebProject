@@ -76,7 +76,7 @@ export default async function StatisticsPage() {
                 <nav className="stats-sidebar-nav">
                     <a href="/pages/home/index.html" className="stats-nav-link">Home</a>
                     <a href="/pages/profile/profile.html" className="stats-nav-link">Profile</a>
-                    <a href="/statistics" className="stats-nav-link stats-nav-link--active">Statistics</a>
+                    <a href="/statistics" className="stats-nav-link stats-nav-link--active" title="Admin only · shown for testing &amp; demo purposes">Statistics <span style={{fontSize:"0.7em",opacity:0.6}}>(Demo)</span></a>
                 </nav>
             </aside>
 
