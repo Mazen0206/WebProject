@@ -9,6 +9,7 @@ function avatarSrc(path) {
     return "/" + path;
 }
 
+/** Shown when `coverImage` is null (legacy accounts). New accounts get `/assets/images/icon.png` from registration. */
 const COVER_FALLBACKS = [
     "assets/Posts/post-city.jpg",
     "assets/Posts/post-nature.jpg",
@@ -17,6 +18,23 @@ const COVER_FALLBACKS = [
     "assets/Posts/post-coffee.jpg",
     "assets/Posts/post-couch.jpg",
 ];
+
+function resolveCoverImage(user) {
+    if (user.coverImage) {
+        let cover = user.coverImage;
+        if (!cover.startsWith("data:") && !cover.startsWith("http") && !cover.startsWith("/")) {
+            cover = "/" + cover;
+        }
+        return cover;
+    }
+    const userHash =
+        Math.abs([...(user.id || "")].reduce((acc, c) => acc + c.charCodeAt(0), 0)) || 1;
+    let cover = COVER_FALLBACKS[userHash % COVER_FALLBACKS.length];
+    if (!cover.startsWith("data:") && !cover.startsWith("http") && !cover.startsWith("/")) {
+        cover = "/" + cover;
+    }
+    return cover;
+}
 
 async function main() {
     const currentUserId = await validateSession();
@@ -62,12 +80,7 @@ async function main() {
 }
 
 function renderProfile(viewedUser, loggedInUser, isOwnProfile) {
-    const userHash = Math.abs([...(viewedUser.id || "")].reduce((acc, c) => acc + c.charCodeAt(0), 0)) || 1;
-    let cover = viewedUser.coverImage || COVER_FALLBACKS[userHash % COVER_FALLBACKS.length];
-    if (!cover.startsWith("data:") && !cover.startsWith("http") && !cover.startsWith("/")) {
-        cover = "/" + cover;
-    }
-    document.getElementById("profile-cover").src = cover;
+    document.getElementById("profile-cover").src = resolveCoverImage(viewedUser);
     document.getElementById("profile-avatar-img").src = avatarSrc(viewedUser.profilePicture);
 
     document.getElementById("profile-name").textContent = viewedUser.username;
@@ -208,14 +221,8 @@ function openEditModal(viewedUser) {
     const fileInput = document.getElementById("edit-avatar-file");
     if (fileInput) fileInput.value = "";
 
-    const userHash = Math.abs([...(viewedUser.id || "")].reduce((acc, c) => acc + c.charCodeAt(0), 0)) || 1;
-    let cover = viewedUser.coverImage || COVER_FALLBACKS[userHash % COVER_FALLBACKS.length];
-    if (!cover.startsWith("data:") && !cover.startsWith("http") && !cover.startsWith("/")) {
-        cover = "/" + cover;
-    }
-    
     const coverPreview = document.getElementById("edit-cover-preview");
-    if (coverPreview) coverPreview.src = cover;
+    if (coverPreview) coverPreview.src = resolveCoverImage(viewedUser);
 
     const coverInput = document.getElementById("edit-cover-file");
     if (coverInput) coverInput.value = "";
