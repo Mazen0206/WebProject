@@ -11,7 +11,7 @@
     "db:push": "prisma db push",
     "db:seed": "node prisma/seed.js",
     "db:reset": "prisma db push --force-reset && node prisma/seed.js",
-    "postinstall": "prisma migrate dev --name init && prisma generate && prisma db seed"
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "node prisma/seed.js"
